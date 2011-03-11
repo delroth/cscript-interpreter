@@ -19,6 +19,7 @@ add_executable(cscript
                instruction-handler.hh
                instruction-register.hh
                main.cc
+               scratchpad.hh
                stack.hh
                thread-context.hh
                variable.hh)

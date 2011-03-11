@@ -1,6 +1,7 @@
 #ifndef __THREAD_CONTEXT_HH_
 # define __THREAD_CONTEXT_HH_
 
+# include "scratchpad.hh"
 # include "stack.hh"
 
 # include <cstdint>
@@ -21,6 +22,12 @@ struct thread_context
      * and the old stack frame base.
      */
     stack stk;
+
+    /**
+     * The scratchpad, temporary storage zone for variables used in
+     * computations, or stored as return value of a function.
+     */
+    scratchpad scratch;
 };
 
 }
