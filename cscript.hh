@@ -58,8 +58,9 @@ public:
      *
      * @param buffer The buffer containing the script bytecode.
      * @param size The size of the buffer.
+     * @return The boolean value false in case of error, else true.
      */
-    void parse_bytecode(const char* buffer, size_t size);
+    bool parse_bytecode(const char* buffer, size_t size);
 
 private:
     /**
