@@ -14,6 +14,8 @@ add_executable(cscript
                cscript.hh
                endian.hh
                exception.hh
+               instruction-dispatcher.cc
+               instruction-dispatcher.hh
                instruction-handler.hh
                main.cc
                stack.hh
