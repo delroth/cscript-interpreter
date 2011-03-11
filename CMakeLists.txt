@@ -17,6 +17,7 @@ add_executable(cscript
                instruction-dispatcher.cc
                instruction-dispatcher.hh
                instruction-handler.hh
+               instruction-register.hh
                main.cc
                stack.hh
                thread-context.hh)
