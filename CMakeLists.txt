@@ -13,5 +13,6 @@ add_executable(cscript
                cscript.cc
                cscript.hh
                endian.hh
-               main.cc)
+               main.cc
+               thread-context.hh)
 target_link_libraries(cscript ${Boost_LIBRARIES})

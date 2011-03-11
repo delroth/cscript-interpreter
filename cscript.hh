@@ -2,7 +2,9 @@
 # define __CSCRIPT_HH_
 
 # include "endian.hh"
+# include "thread-context.hh"
 
+# include <boost/array.hpp>
 # include <cstdint>
 # include <cstdlib>
 
@@ -84,6 +86,16 @@ private:
      * Size of the data section in bytes.
      */
     size_t data_sect_size_;
+
+    /**
+     * Current thread index.
+     */
+    size_t current_thread_;
+
+    /**
+     * Execution context of the script threads.
+     */
+    boost::array<thread_context, MAX_THREADS> threads_;
 };
 
 }
