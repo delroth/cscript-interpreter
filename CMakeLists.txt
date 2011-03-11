@@ -20,5 +20,6 @@ add_executable(cscript
                instruction-register.hh
                main.cc
                stack.hh
-               thread-context.hh)
+               thread-context.hh
+               variable.hh)
 target_link_libraries(cscript ${Boost_LIBRARIES})
