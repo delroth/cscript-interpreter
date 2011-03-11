@@ -14,6 +14,7 @@ add_executable(cscript
                cscript.hh
                endian.hh
                exception.hh
+               instruction-handler.hh
                main.cc
                stack.hh
                thread-context.hh)
