@@ -10,6 +10,8 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_directories("${Boost_LIBRARY_DIRS}")
 
 add_executable(cscript
+               address.cc
+               address.hh
                cscript.cc
                cscript.hh
                endian.hh
