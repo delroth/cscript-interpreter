@@ -13,6 +13,13 @@ namespace cscript {
 struct variable
 {
     /**
+     * Constructor which initializes the variable to a 0 value/addr.
+     */
+    variable() : value(0), address(0), type(0), pointed_size(0)
+    {
+    }
+
+    /**
      * The variable value.
      */
     uint32_t value;
