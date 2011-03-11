@@ -56,6 +56,19 @@ public:
     }
 
     /**
+     * Returns the thread context from a thread id.
+     */
+    thread_context& thread(uint16_t n)
+    {
+        return threads_[n];
+    }
+
+    const thread_context& thread(uint16_t n) const
+    {
+        return threads_[n];
+    }
+
+    /**
      * Initializes a cscript object from a buffer containing bytecode.
      * Does not take ownership of the buffer.
      *
