@@ -11,7 +11,8 @@ namespace cscript {
 class cscript
 {
 public:
-    cscript()
+    cscript() : code_sect_(0), code_sect_size_(0),
+                data_sect_(0), data_sect_size_(0)
     {
     }
 
