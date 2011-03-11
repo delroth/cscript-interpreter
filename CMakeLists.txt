@@ -15,5 +15,6 @@ add_executable(cscript
                endian.hh
                exception.hh
                main.cc
+               stack.hh
                thread-context.hh)
 target_link_libraries(cscript ${Boost_LIBRARIES})
