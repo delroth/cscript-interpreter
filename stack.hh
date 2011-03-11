@@ -3,7 +3,6 @@
 
 # include "exception.hh"
 
-# include <algorithm>
 # include <boost/array.hpp>
 # include <cstdint>
 
