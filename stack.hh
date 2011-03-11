@@ -62,6 +62,19 @@ public:
         top_ += size;
     }
 
+    /**
+     * Returns a reference to a value at a given offset.
+     */
+    uint32_t& at(uint16_t offset)
+    {
+        return arr_[offset];
+    }
+
+    const uint32_t& at(uint16_t offset) const
+    {
+        return arr_[offset];
+    }
+
 private:
     /**
      * The array containing the stack values.
