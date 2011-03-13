@@ -1,7 +1,10 @@
 #include "cscript.hh"
 #include "endian.hh"
+#include "instruction-dispatcher.hh"
+#include "instruction-handler.hh"
 
 #include <cstring>
+#include <sstream>
 
 namespace {
 
@@ -54,6 +57,19 @@ void cscript::parse_bytecode(const char* buffer, size_t size)
 
 void cscript::run_one_instr()
 {
+    uint32_t opcode = read_code_at(curr_thread().pc++);
+    boost::optional<instruction::handler> handler;
+
+    handler = instruction::dispatcher::get().get_handler(opcode);
+    if (!handler)
+    {
+        std::ostringstream oss;
+        oss << "no handler found for opcode ";
+        oss << std::hex << opcode;
+        throw bad_script_exception(oss.str());
+    }
+    else
+        (*handler)(*this, opcode);
 }
 
 }
