@@ -49,7 +49,7 @@ void cscript::parse_bytecode(const char* buffer, size_t size)
     memcpy(data_sect_, buffer + data_base, data_size);
     data_sect_size_ = data_size;
 
-    curr_thread().pc = initial_pc;
+    curr_thread().pc = initial_pc / 4;
 }
 
 void cscript::run_one_instr()
