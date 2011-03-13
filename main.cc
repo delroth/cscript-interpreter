@@ -2,6 +2,7 @@
 
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <cstdio>
+#include <iostream>
 #include <string>
 
 int main(int argc, char** argv)
@@ -15,10 +16,13 @@ int main(int argc, char** argv)
     std::string filename = argv[1];
     boost::iostreams::mapped_file_source src(filename);
 
-    cscript::cscript script;
-    if (!script.parse_bytecode(src.data(), src.size()))
+    try
     {
-        fprintf(stderr, "error: %s is not a valid bytecode\n", argv[1]);
+        cscript::cscript script(src.data(), src.size());
+    }
+    catch (const cscript::bad_script_exception& ex)
+    {
+        std::cerr << "error: " << ex.message() << std::endl;
         return 2;
     }
 

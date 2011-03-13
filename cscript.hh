@@ -2,6 +2,7 @@
 # define __CSCRIPT_HH_
 
 # include "endian.hh"
+# include "exception.hh"
 # include "thread-context.hh"
 
 # include <boost/array.hpp>
@@ -10,12 +11,22 @@
 
 namespace cscript {
 
+class bad_script_exception : public exception
+{
+public:
+    bad_script_exception(const std::string& message) : exception(message)
+    {
+    }
+};
+
 class cscript
 {
 public:
-    cscript() : code_sect_(0), code_sect_size_(0),
-                data_sect_(0), data_sect_size_(0)
+    cscript(const char* buffer, size_t size) :
+        code_sect_(0), code_sect_size_(0), data_sect_(0), data_sect_size_(0),
+        current_thread_(0)
     {
+        this->parse_bytecode(buffer, size);
     }
 
     /**
@@ -68,17 +79,16 @@ public:
         return threads_[n];
     }
 
+private:
     /**
      * Initializes a cscript object from a buffer containing bytecode.
      * Does not take ownership of the buffer.
      *
      * @param buffer The buffer containing the script bytecode.
      * @param size The size of the buffer.
-     * @return The boolean value false in case of error, else true.
      */
-    bool parse_bytecode(const char* buffer, size_t size);
+    void parse_bytecode(const char* buffer, size_t size);
 
-private:
     /**
      * Code section of the compiled bytecode. An uint32_t array as it will
      * only be accessed 4 byte by 4 byte.
