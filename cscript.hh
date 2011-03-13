@@ -34,8 +34,8 @@ public:
      */
     ~cscript()
     {
-        delete code_sect_;
-        delete data_sect_;
+        delete[] code_sect_;
+        delete[] data_sect_;
     }
 
     /**
