@@ -75,6 +75,26 @@ public:
         return arr_[offset];
     }
 
+    /**
+     * Pushes a new stack frame on the stack.
+     */
+    void push_frame(uint32_t pc)
+    {
+        push(pc);
+        push(frame_base_);
+        frame_base_ = top_;
+    }
+
+    /**
+     * Restores a stack frame from the stack and returns pc.
+     */
+    uint32_t pop_frame()
+    {
+        top_ = frame_base_;
+        frame_base_ = pop();
+        return pop();
+    }
+
 private:
     /**
      * The array containing the stack values.
