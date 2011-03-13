@@ -16,6 +16,7 @@ add_executable(cscript
                cscript.hh
                endian.hh
                exception.hh
+               instrs/control-flow.cc
                instrs/stack.cc
                instruction-dispatcher.cc
                instruction-dispatcher.hh
