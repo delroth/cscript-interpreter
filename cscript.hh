@@ -79,6 +79,19 @@ public:
         return threads_[n];
     }
 
+    /**
+     * Returns the current thread.
+     */
+    thread_context& curr_thread()
+    {
+        return thread(current_thread_);
+    }
+
+    const thread_context& curr_thread() const
+    {
+        return thread(current_thread_);
+    }
+
 private:
     /**
      * Initializes a cscript object from a buffer containing bytecode.
