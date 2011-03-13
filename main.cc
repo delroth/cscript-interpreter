@@ -19,8 +19,9 @@ int main(int argc, char** argv)
     try
     {
         cscript::cscript script(src.data(), src.size());
+        script.run();
     }
-    catch (const cscript::bad_script_exception& ex)
+    catch (const cscript::exception& ex)
     {
         std::cerr << "error: " << ex.message() << std::endl;
         return 2;

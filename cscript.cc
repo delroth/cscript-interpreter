@@ -52,4 +52,8 @@ void cscript::parse_bytecode(const char* buffer, size_t size)
     curr_thread().pc = initial_pc;
 }
 
+void cscript::run_one_instr()
+{
+}
+
 }

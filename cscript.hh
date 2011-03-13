@@ -24,7 +24,7 @@ class cscript
 public:
     cscript(const char* buffer, size_t size) :
         code_sect_(0), code_sect_size_(0), data_sect_(0), data_sect_size_(0),
-        current_thread_(0)
+        current_thread_(0), done_(false)
     {
         this->parse_bytecode(buffer, size);
     }
@@ -92,6 +92,28 @@ public:
         return thread(current_thread_);
     }
 
+    /**
+     * Runs the bytecode.
+     */
+    void run()
+    {
+        while (!done())
+            run_one_instr();
+    }
+
+    /**
+     * Executes one instruction.
+     */
+    void run_one_instr();
+
+    /**
+     * Is the interpretation done or not?
+     */
+    bool done() const
+    {
+        return done_;
+    }
+
 private:
     /**
      * Initializes a cscript object from a buffer containing bytecode.
@@ -127,6 +149,11 @@ private:
      * Current thread index.
      */
     size_t current_thread_;
+
+    /**
+     * Is the interpretation done?
+     */
+    bool done_;
 
     /**
      * Execution context of the script threads.
