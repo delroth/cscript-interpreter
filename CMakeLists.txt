@@ -26,5 +26,6 @@ add_executable(cscript
                scratchpad.hh
                stack.hh
                thread-context.hh
+               type.hh
                variable.hh)
 target_link_libraries(cscript ${Boost_LIBRARIES})
