@@ -38,6 +38,8 @@ void load_addr_handler(cscript& interp, uint32_t opcode)
     {
         throw exception("load_stack_addr: not supported yet");
     }
+
+    interp.curr_thread().scratch.push();
 }
 
 register_instruction load_stack_addr_instr(0x03000000, 0xFF000000,
