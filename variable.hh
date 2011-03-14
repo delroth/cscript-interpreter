@@ -21,6 +21,11 @@ struct variable
     }
 
     /**
+     * Converts the variable value to another type.
+     */
+    uint32_t cast_to(uint16_t type);
+
+    /**
      * The variable value.
      */
     union {
