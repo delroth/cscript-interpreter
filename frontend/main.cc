@@ -1,4 +1,4 @@
-#include "cscript.hh"
+#include <cscript.hh>
 
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <cstdio>
