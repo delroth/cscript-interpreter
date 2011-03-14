@@ -93,6 +93,14 @@ public:
     }
 
     /**
+     * Returns the current thread id.
+     */
+    uint16_t curr_thread_id() const
+    {
+        return current_thread_;
+    }
+
+    /**
      * Runs the bytecode.
      */
     void run()
@@ -148,7 +156,7 @@ private:
     /**
      * Current thread index.
      */
-    size_t current_thread_;
+    uint16_t current_thread_;
 
     /**
      * Is the interpretation done?
