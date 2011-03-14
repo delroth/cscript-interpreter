@@ -28,9 +28,7 @@ void push_handler(cscript& interp, uint32_t opcode)
     variable& var = interp.curr_thread().scratch.top(0);
 
     if (dest_type != 0)
-    {
-        throw exception("push: cast not yet implemented");
-    }
+        resulting_value = var.cast_to(dest_type);
 
     var.value.u32 = resulting_value;
     interp.curr_thread().stk.push(resulting_value);
