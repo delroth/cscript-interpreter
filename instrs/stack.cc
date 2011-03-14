@@ -32,7 +32,7 @@ void push_handler(cscript& interp, uint32_t opcode)
         throw exception("push: cast not yet implemented");
     }
 
-    var.value = resulting_value;
+    var.value.u32 = resulting_value;
     interp.curr_thread().stk.push(resulting_value);
 }
 register_instruction push_instr(0x0E000000, 0xFF000000, push_handler);

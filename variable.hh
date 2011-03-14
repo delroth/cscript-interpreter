@@ -15,14 +15,19 @@ struct variable
     /**
      * Constructor which initializes the variable to a 0 value/addr.
      */
-    variable() : value(0), address(0), type(0), pointed_size(0)
+    variable() : address(0), type(0), pointed_size(0)
     {
+        value.u32 = 0;
     }
 
     /**
      * The variable value.
      */
-    uint32_t value;
+    union {
+        uint32_t u32;
+        int32_t s32;
+        float f32;
+    } value;
 
     /**
      * If the variable is not an immediate value but is instead referencing

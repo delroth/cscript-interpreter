@@ -31,7 +31,7 @@ void load_addr_handler(cscript& interp, uint32_t opcode)
     if (type & type::POINTER3)
     {
         var.address = 0;
-        var.value = addr;
+        var.value.u32 = addr;
         var.type = type::IMMEDIATE | (type & 0xF);
     }
     else
