@@ -16,6 +16,7 @@ add_executable(cscript
                cscript.hh
                endian.hh
                exception.hh
+               instrs/compute-utils.cc
                instrs/control-flow.cc
                instrs/load-address.cc
                instrs/stack.cc
