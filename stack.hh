@@ -95,6 +95,14 @@ public:
         return pop();
     }
 
+    /**
+     * Gets the current frame base index.
+     */
+    uint32_t frame_base() const
+    {
+        return frame_base_;
+    }
+
 private:
     /**
      * The array containing the stack values.
