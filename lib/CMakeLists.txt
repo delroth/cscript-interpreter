@@ -1,4 +1,4 @@
-add_library(cscript STATIC
+add_library(cscript SHARED
             address.cc
             address.hh
             cscript.cc
@@ -8,6 +8,7 @@ add_library(cscript STATIC
             instrs/compute-utils.cc
             instrs/control-flow.cc
             instrs/load-address.cc
+            instrs/misc.cc
             instrs/stack.cc
             instruction-dispatcher.cc
             instruction-dispatcher.hh
