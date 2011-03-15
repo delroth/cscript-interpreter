@@ -122,6 +122,14 @@ public:
         return done_;
     }
 
+    /**
+     * Exits the script interpretation.
+     */
+    void exit()
+    {
+        done_ = true;
+    }
+
 private:
     /**
      * Initializes a cscript object from a buffer containing bytecode.
