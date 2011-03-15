@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(cscript-interpreter)
 
+enable_testing()
+
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-std=c++0x -Wall -Wextra -Werror)
 endif()
