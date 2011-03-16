@@ -1,5 +1,10 @@
+#include "address.hh"
+#include "exception.hh"
 #include "type.hh"
 #include "variable.hh"
+
+#include <map>
+#include <set>
 
 namespace cscript {
 
@@ -31,6 +36,60 @@ uint32_t variable::cast_to(uint16_t wanted_type) const
         bitcaster.f32 = this->value.u32;
 
     return bitcaster.u32;
+}
+
+uint32_t variable::read_value_from_addr(const cscript& interp) const
+{
+    const static std::set<uint16_t> imm_types = {
+        type::VOID
+    };
+
+    if (this->type & type::IMMEDIATE)
+        return this->value.u32;
+    else if (imm_types.find(this->type & 0xFF) != imm_types.end())
+        return this->value.u32;
+    else
+    {
+        const char* ptr = address::get_ptr(interp, this->address);
+        uint16_t t = this->type & 0xFF;
+        variable::value_type v;
+
+        switch (t)
+        {
+        case type::UCHAR:
+            v.u32 = *((const uint8_t*)ptr);
+            break;
+
+        case type::SCHAR:
+            v.s32 = *((const int8_t*)ptr);
+            break;
+
+        case type::UHALF:
+            v.u32 = endian::from_big(*((const uint16_t*)ptr));
+            break;
+
+        case type::SHALF:
+            v.s32 = (int16_t)endian::from_big(*((const uint16_t*)ptr));
+            break;
+
+        case type::UWORD:
+            v.u32 = endian::from_big(*((const uint32_t*)ptr));
+            break;
+
+        case type::SWORD:
+            v.s32 = (int32_t)endian::from_big(*((const uint32_t*)ptr));
+            break;
+
+        case type::FLOAT:
+            v.u32 = endian::from_big(*((const uint32_t*)ptr));
+            break;
+
+        default:
+            throw exception("reading an unknown value type from memory");
+        }
+
+        return v.u32;
+    }
 }
 
 }

@@ -5,6 +5,9 @@
 
 namespace cscript {
 
+// Forward declaration
+class cscript;
+
 /**
  * Represents a variable used to store a computed value in the interpreter.
  *
@@ -24,6 +27,11 @@ struct variable
      * Converts the variable value to another type.
      */
     uint32_t cast_to(uint16_t type) const;
+
+    /**
+     * Reads the variable value from its address.
+     */
+    uint32_t read_value_from_addr(const cscript& interp) const;
 
     /**
      * The variable value.
