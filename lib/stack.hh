@@ -103,6 +103,14 @@ public:
         return frame_base_;
     }
 
+    /**
+     * Gets the current stack top index.
+     */
+    uint32_t top() const
+    {
+        return top_;
+    }
+
 private:
     /**
      * The array containing the stack values.
