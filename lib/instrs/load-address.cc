@@ -36,7 +36,9 @@ void load_addr_handler(cscript& interp, uint32_t opcode)
     }
     else
     {
-        throw exception("load_stack_addr: not supported yet");
+        var.address = addr;
+        var.type = type;
+        var.value.u32 = var.read_value_from_addr(interp);
     }
 
     interp.curr_thread().scratch.push();
