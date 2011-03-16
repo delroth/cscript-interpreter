@@ -23,11 +23,7 @@ uint32_t variable::cast_to(uint16_t wanted_type)
                        (this->type & 0xFF) == type::SHALF ||
                        (this->type & 0xFF) == type::SWORD;
 
-    union {
-        uint32_t u32;
-        int32_t s32;
-        float f32;
-    } bitcaster;
+    variable::value_type bitcaster;
 
     if (i_am_signed)
         bitcaster.f32 = this->value.s32;

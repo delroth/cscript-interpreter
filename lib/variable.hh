@@ -28,7 +28,8 @@ struct variable
     /**
      * The variable value.
      */
-    union {
+    union value_type
+    {
         uint32_t u32;
         int32_t s32;
         float f32;
