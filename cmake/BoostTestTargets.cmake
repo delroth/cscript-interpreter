@@ -90,9 +90,6 @@ if(Boost_FOUND AND NOT "${Boost_VERSION}0" LESS "1034000")
 endif()
 
 function(add_boost_test _name)
-	if(NOT BUILD_TESTING)
-		return()
-	endif()
 	if("${CMAKE_VERSION}" VERSION_LESS "2.8.0")
 		if(NOT "${_boost_test_cmakever_pestered}x" EQUALS "${CMAKE_VERSION}x")
 			message(STATUS
