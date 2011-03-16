@@ -41,7 +41,8 @@ uint32_t variable::cast_to(uint16_t wanted_type) const
 uint32_t variable::read_value_from_addr(const cscript& interp) const
 {
     const static std::set<uint16_t> imm_types = {
-        type::VOID
+        type::VOID,
+        type::ADDR
     };
 
     if (this->type & type::IMMEDIATE)
@@ -72,16 +73,13 @@ uint32_t variable::read_value_from_addr(const cscript& interp) const
             v.s32 = (int16_t)endian::from_big(*((const uint16_t*)ptr));
             break;
 
+        case type::FLOAT:
         case type::UWORD:
             v.u32 = endian::from_big(*((const uint32_t*)ptr));
             break;
 
         case type::SWORD:
             v.s32 = (int32_t)endian::from_big(*((const uint32_t*)ptr));
-            break;
-
-        case type::FLOAT:
-            v.u32 = endian::from_big(*((const uint32_t*)ptr));
             break;
 
         default:

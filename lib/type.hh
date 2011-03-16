@@ -31,6 +31,7 @@ const uint8_t SHALF = 5;
 const uint8_t UWORD = 6;
 const uint8_t SWORD = 7;
 const uint8_t FLOAT = 8;
+const uint8_t ADDR = 12;
 
 }}
 
