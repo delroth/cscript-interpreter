@@ -5,6 +5,7 @@ enable_testing()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-std=c++0x -Wall -Wextra -Werror)
+    add_definitions(-DSOURCE_DIR="${CMAKE_SOURCE_DIR}")
 endif()
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
