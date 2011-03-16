@@ -13,9 +13,9 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 find_package(Boost REQUIRED COMPONENTS iostreams)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories("${Boost_LIBRARY_DIRS}")
-include(BoostTestTargets)
 
 include_directories(lib)
 
 add_subdirectory(lib)
+add_subdirectory(tests)
 add_subdirectory(frontend)

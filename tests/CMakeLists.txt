@@ -1,0 +1,13 @@
+include(BoostTestTargets)
+add_boost_test(cscript
+    SOURCES
+        runner.cc
+        script-loader.cc
+        script-loader.hh
+        test-exit.cc
+    TESTS
+        instr_exit
+    LIBRARIES
+        cscript
+        ${Boost_LIBRARIES}
+    )
