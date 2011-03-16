@@ -8,8 +8,8 @@ uint32_t variable::cast_to(uint16_t wanted_type)
     if (wanted_type == this->type) // no conversion to do
         return this->value.u32;
 
-    bool i_am_float = (this->type & 0xFF) == cscript::type::FLOAT;
-    bool want_float = (wanted_type & 0xFF) == cscript::type::FLOAT;
+    bool i_am_float = (this->type & 0xFF) == type::FLOAT;
+    bool want_float = (wanted_type & 0xFF) == type::FLOAT;
 
     if (i_am_float == want_float) // again, no conversion
         return this->value.u32;
@@ -19,9 +19,10 @@ uint32_t variable::cast_to(uint16_t wanted_type)
         return this->value.f32;
     }
 
-    bool i_am_signed = (this->type & 0xFF) == cscript::type::SCHAR ||
-                       (this->type & 0xFF) == cscript::type::SHALF ||
-                       (this->type & 0xFF) == cscript::type::SWORD;
+    bool i_am_signed = (this->type & 0xFF) == type::SCHAR ||
+                       (this->type & 0xFF) == type::SHALF ||
+                       (this->type & 0xFF) == type::SWORD;
+
     union {
         uint32_t u32;
         int32_t s32;
