@@ -22,6 +22,18 @@ public:
 class cscript
 {
 public:
+    /**
+     * Default constructor, does not initialize the sections. The script must
+     * be parsed using the parse_bytecode method.
+     *
+     * When possible, use the cscript(const char*, size_t) constructor instead.
+     */
+    cscript() :
+        code_sect_(0), code_sect_size_(0), data_sect_(0), data_sect_size_(0),
+        current_thread_(0), done_(false)
+    {
+    }
+
     cscript(const char* buffer, size_t size) :
         code_sect_(0), code_sect_size_(0), data_sect_(0), data_sect_size_(0),
         current_thread_(0), done_(false)
@@ -130,7 +142,6 @@ public:
         done_ = true;
     }
 
-private:
     /**
      * Initializes a cscript object from a buffer containing bytecode.
      * Does not take ownership of the buffer.
@@ -140,6 +151,7 @@ private:
      */
     void parse_bytecode(const char* buffer, size_t size);
 
+private:
     /**
      * Code section of the compiled bytecode. An uint32_t array as it will
      * only be accessed 4 byte by 4 byte.
