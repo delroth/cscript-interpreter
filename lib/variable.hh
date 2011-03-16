@@ -23,7 +23,7 @@ struct variable
     /**
      * Converts the variable value to another type.
      */
-    uint32_t cast_to(uint16_t type);
+    uint32_t cast_to(uint16_t type) const;
 
     /**
      * The variable value.

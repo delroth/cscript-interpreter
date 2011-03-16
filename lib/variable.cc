@@ -3,7 +3,7 @@
 
 namespace cscript {
 
-uint32_t variable::cast_to(uint16_t wanted_type)
+uint32_t variable::cast_to(uint16_t wanted_type) const
 {
     if (wanted_type == this->type) // no conversion to do
         return this->value.u32;
