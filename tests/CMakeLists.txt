@@ -5,8 +5,10 @@ add_boost_test(cscript
         script-loader.cc
         script-loader.hh
         test-exit.cc
+        test-reserve.cc
     TESTS
         instr_exit
+        instr_reserve
     LIBRARIES
         cscript
         ${Boost_LIBRARIES}
