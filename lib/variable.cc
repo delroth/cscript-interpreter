@@ -90,4 +90,39 @@ uint32_t variable::read_value_from_addr(const cscript& interp) const
     }
 }
 
+void variable::write_value_to_addr(cscript& interp) const
+{
+    if (this->type & type::IMMEDIATE)
+        return;
+
+    char* ptr = address::get_ptr(interp, this->address);
+    if (this->type & type::POINTER || this->type & type::POINTER3)
+    {
+        *((uint32_t*)ptr) = this->value.u32;
+        return;
+    }
+
+    switch (this->type & 0xF)
+    {
+    case type::SCHAR:
+    case type::UCHAR:
+        *((uint8_t*)ptr) = this->value.u32;
+        break;
+
+    case type::SHALF:
+    case type::UHALF:
+        *((uint16_t*)ptr) = this->value.u32;
+        break;
+
+    case type::SWORD:
+    case type::UWORD:
+        *((uint32_t*)ptr) = this->value.u32;
+        break;
+
+    case type::FLOAT:
+        *((float*)ptr) = this->value.f32;
+        break;
+    }
+}
+
 }

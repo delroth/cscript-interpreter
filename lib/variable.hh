@@ -34,6 +34,12 @@ struct variable
     uint32_t read_value_from_addr(const cscript& interp) const;
 
     /**
+     * Reciprocal of "read_value_from_addr": stores the current variable
+     * value to its memory address.
+     */
+    void write_value_to_addr(cscript& interp) const;
+
+    /**
      * The variable value.
      */
     union value_type
