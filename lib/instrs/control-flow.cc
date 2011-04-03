@@ -17,6 +17,20 @@ void call_handler(cscript& interp, uint32_t opcode)
     interp.curr_thread().stk.push_frame(interp.curr_thread().pc);
     interp.curr_thread().pc = target / 4;
 }
+
 register_instruction call_instr(0x05000000, 0xFF000000, call_handler);
+
+void jump_handler(cscript& interp, uint32_t opcode)
+{
+    (void)opcode;
+
+    uint32_t target = interp.read_code_at(interp.curr_thread().pc++);
+    if (target % 4 != 0)
+        throw exception("misaligned jump target");
+
+    interp.curr_thread().pc = target / 4;
+}
+
+register_instruction jump_instr(0x08000000, 0xFF000000, jump_handler);
 
 }}
