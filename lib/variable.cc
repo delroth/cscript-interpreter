@@ -47,12 +47,12 @@ uint32_t variable::read_value_from_addr(const cscript& interp) const
 
     if (this->type & type::IMMEDIATE)
         return this->value.u32;
-    else if (imm_types.find(this->type & 0xFF) != imm_types.end())
+    else if (imm_types.find(this->type & 0xF) != imm_types.end())
         return this->value.u32;
     else
     {
         const char* ptr = address::get_ptr(interp, this->address);
-        uint16_t t = this->type & 0xFF;
+        uint16_t t = this->type & 0xF;
         variable::value_type v;
 
         switch (t)
