@@ -5,6 +5,7 @@ add_library(cscript SHARED
             cscript.hh
             endian.hh
             exception.hh
+            instrs/compute-index.cc
             instrs/compute-utils.cc
             instrs/control-flow.cc
             instrs/load-address.cc
