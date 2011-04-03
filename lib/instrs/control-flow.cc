@@ -1,6 +1,7 @@
 #include "../cscript.hh"
 #include "../exception.hh"
 #include "../instruction-register.hh"
+#include "../type.hh"
 
 namespace cscript { namespace instruction {
 
@@ -19,6 +20,17 @@ void call_handler(cscript& interp, uint32_t opcode)
 }
 
 register_instruction call_instr(0x05000000, 0xFF000000, call_handler);
+
+void ret_handler(cscript& interp, uint32_t opcode)
+{
+    interp.curr_thread().pc = interp.curr_thread().stk.pop_frame();
+
+    uint16_t rettype = type::IMMEDIATE | ((opcode >> 16) & 0xFF);
+    interp.curr_thread().scratch.top(0).type = rettype;
+    interp.curr_thread().scratch.push();
+}
+
+register_instruction ret_instr(0x06000000, 0xFF000000, ret_handler);
 
 void jump_handler(cscript& interp, uint32_t opcode)
 {
