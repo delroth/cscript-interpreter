@@ -6,7 +6,7 @@
 
 namespace cscript { namespace instruction {
 
-void load_addr_handler(cscript& interp, uint32_t opcode)
+void load_ptr_handler(cscript& interp, uint32_t opcode)
 {
     bool load_stack = (opcode & 0xFF000000) == 0x03000000;
     uint32_t offset = interp.read_code_at(interp.curr_thread().pc++);
@@ -18,7 +18,7 @@ void load_addr_handler(cscript& interp, uint32_t opcode)
     {
         int32_t s_offset = (int32_t)offset;
         if (s_offset % 4 != 0)
-            throw exception("load_stack_addr: misaligned offset");
+            throw exception("load_stack_ptr: misaligned offset");
         s_offset /= 4;
         offset = interp.curr_thread().stk.frame_base() - s_offset;
         addr = address::make_stack_addr(interp.curr_thread_id(), offset);
@@ -44,10 +44,10 @@ void load_addr_handler(cscript& interp, uint32_t opcode)
     interp.curr_thread().scratch.push();
 }
 
-register_instruction load_stack_addr_instr(0x03000000, 0xFF000000,
-                                           load_addr_handler);
+register_instruction load_stack_ptr_instr(0x03000000, 0xFF000000,
+                                          load_ptr_handler);
 
-register_instruction load_data_addr_instr(0x04000000, 0xFF000000,
-                                          load_addr_handler);
+register_instruction load_data_ptr_instr(0x04000000, 0xFF000000,
+                                         load_ptr_handler);
 
 }}
