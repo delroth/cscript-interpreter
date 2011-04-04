@@ -1,6 +1,8 @@
 add_library(cscript SHARED
             address.cc
             address.hh
+            basic-cscript.cc
+            basic-cscript.hh
             cscript.cc
             cscript.hh
             endian.hh

@@ -1,4 +1,4 @@
-#include <cscript.hh>
+#include <basic-cscript.hh>
 
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <cstdio>
@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 
     try
     {
-        cscript::cscript script(src.data(), src.size());
+        cscript::basic_cscript script(src.data(), src.size());
         try
         {
             script.run();

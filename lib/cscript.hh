@@ -44,11 +44,16 @@ public:
     /**
      * Destructor of the cscript object.
      */
-    ~cscript()
+    virtual ~cscript()
     {
         delete[] code_sect_;
         delete[] data_sect_;
     }
+
+    /**
+     * Handles a syscall. To be implemented in subclasses.
+     */
+    virtual void handle_syscall(uint16_t syscall) = 0;
 
     /**
      * Read an uint32_t from the code section.

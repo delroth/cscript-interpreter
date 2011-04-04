@@ -1,7 +1,7 @@
 #ifndef __SCRIPT_LOADER_HH_
 # define __SCRIPT_LOADER_HH_
 
-# include <cscript.hh>
+# include <basic-cscript.hh>
 # include <string>
 
 namespace cscript { namespace tests {
@@ -20,7 +20,7 @@ struct script_loader
     /**
      * The loaded script object.
      */
-    cscript interp;
+    basic_cscript interp;
 };
 
 }}
