@@ -5,6 +5,7 @@
 
 # include <boost/array.hpp>
 # include <cstdint>
+# include <iomanip>
 
 namespace cscript {
 
@@ -126,7 +127,36 @@ private:
      * Index of the stack current frame base.
      */
     uint32_t frame_base_;
+
+    /*
+     * Friend dumping function.
+     */
+    template <typename T>
+    friend T& operator<<(T& str, const stack& s);
 };
+
+/*
+ * Dumping function.
+ */
+template <typename T>
+T& operator<<(T& str, const stack& s)
+{
+    std::ios_base::fmtflags fmt = str.flags();
+
+    str << "Stack: current top is " << std::hex << s.top_ << " and current "
+        << "frame base is " << s.frame_base_ << std::endl;
+    str << "  Contents:" << std::endl;
+    
+    for (uint32_t i = stack::MAX_SIZE - 1; i >= s.top_; --i)
+    {
+        str << "    ";
+        str << std::hex << std::setfill('0') << std::setw(8);
+        str << s.arr_[i] << std::endl;
+    }
+
+    str.flags(fmt);
+    return str;
+}
 
 };
 

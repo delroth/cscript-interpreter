@@ -4,8 +4,10 @@
 # include "exception.hh"
 # include "variable.hh"
 
+# include <algorithm>
 # include <boost/array.hpp>
 # include <cstdlib>
+# include <iomanip>
 
 namespace cscript {
 
@@ -86,7 +88,32 @@ private:
      * Array containing the variables currently stored in the scratchpad.
      */
     boost::array<variable, MAX_VARIABLES> vars_;
+
+    /*
+     * Friend dumping function.
+     */
+    template <typename T>
+    friend T& operator<<(T& str, const scratchpad& s);
 };
+
+/*
+ * Dumping function.
+ */
+template <typename T>
+T& operator<<(T& str, const scratchpad& s)
+{
+    std::ios_base::fmtflags fmt = str.flags();
+
+    str << "Scratchpad: current index is " << std::dec << s.idx_ << std::endl;
+    str << "  Contents:" << std::endl;
+
+    for (uint32_t i = 0; i < std::min(s.idx_ + 3, (uint32_t)0x100);
+         ++i)
+        str << "    " << s.vars_[i] << std::endl;
+    
+    str.flags(fmt);
+    return str;
+}
 
 }
 

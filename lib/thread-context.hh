@@ -30,6 +30,27 @@ struct thread_context
     scratchpad scratch;
 };
 
+/*
+ * Dumping function.
+ */
+template <typename T>
+T& operator<<(T& str, const thread_context& t)
+{
+    std::ios_base::fmtflags fmt = str.flags();
+
+    str << "THREAD CONTEXT" << std::endl;
+    str << "==============" << std::endl << std::endl;
+
+    str << "PC = 0x";
+    str << std::hex << std::setfill('0') << std::setw(8);
+    str << t.pc << std::endl;
+    str << t.stk << std::endl;
+    str << t.scratch << std::endl;
+
+    str.flags(fmt);
+    return str;
+}
+
 }
 
 #endif

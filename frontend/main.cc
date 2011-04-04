@@ -19,11 +19,20 @@ int main(int argc, char** argv)
     try
     {
         cscript::cscript script(src.data(), src.size());
-        script.run();
+        try
+        {
+            script.run();
+        }
+        catch (const cscript::exception& ex)
+        {
+            std::cerr << script.curr_thread() << std::endl;
+            std::cerr << "runtime error: " << ex.message() << std::endl;
+            return 3;
+        }
     }
     catch (const cscript::exception& ex)
     {
-        std::cerr << "error: " << ex.message() << std::endl;
+        std::cerr << "load error: " << ex.message() << std::endl;
         return 2;
     }
 

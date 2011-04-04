@@ -2,6 +2,7 @@
 # define __VARIABLE_HH_
 
 # include <cstdint>
+# include <iomanip>
 
 namespace cscript {
 
@@ -66,6 +67,28 @@ struct variable
      */
     uint16_t pointed_size;
 };
+
+/*
+ * Dumping function.
+ */
+template <typename T>
+T& operator<<(T& str, const variable& v)
+{
+    std::ios_base::fmtflags fmt = str.flags();
+
+    str << "<v=0x" << std::hex << std::setfill('0') << std::setw(8)
+        << v.value.u32;
+    str << " a=0x" << std::hex << std::setfill('0') << std::setw(8)
+        << v.address;
+    str << " t=0x" << std::hex << std::setfill('0') << std::setw(4) << v.type;
+    str << " ps=0x" << std::hex << std::setfill('0') << std::setw(4)
+        << v.pointed_size;
+    str << ">";
+
+    str.flags(fmt);
+    return str;
+
+}
 
 }
 
