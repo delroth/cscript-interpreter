@@ -1,7 +1,36 @@
 #include "../cscript.hh"
 #include "../instruction-register.hh"
+#include "../type.hh"
 
 namespace cscript { namespace instruction {
+
+void idx_handler(cscript& interp, uint32_t opcode)
+{
+    (void)opcode;
+
+    variable& idx = interp.curr_thread().scratch.top(1);
+    variable& arr = interp.curr_thread().scratch.top(2);
+    interp.curr_thread().scratch.pop();
+
+    if (arr.type & type::POINTER)
+    {
+        uint32_t addr = arr.value.u32 + idx.value.u32 * arr.pointed_size;
+
+        arr.type &= 0xF;
+        arr.address = addr;
+        arr.value.u32 = arr.read_value_from_addr(interp);
+    }
+    else if (arr.type & type::POINTER2)
+    {
+        throw exception("IDX: not yet implemented for POINTER2");
+    }
+    else
+    {
+        throw exception("IDX: indexing a non pointer type");
+    }
+}
+
+register_instruction idx_instr(0x01260000, 0xFFFF0000, idx_handler);
 
 void rawidx_handler(cscript& interp, uint32_t opcode)
 {
