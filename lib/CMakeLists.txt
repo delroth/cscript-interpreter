@@ -20,6 +20,8 @@ add_library(cscript SHARED
             instruction-handler.hh
             instruction-register.hh
             scratchpad.hh
+            skit-cscript.cc
+            skit-cscript.hh
             stack.hh
             thread-context.hh
             type.hh
