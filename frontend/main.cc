@@ -1,31 +1,54 @@
 #include <basic-cscript.hh>
+#include <skit-cscript.hh>
 
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <cstdio>
 #include <iostream>
+#include <map>
 #include <string>
+
+#define CSCRIPT_HANDLER(name, klass) \
+    { name, [](const char* data, size_t size) { \
+        return new klass(data, size); \
+    }}
+
+std::map<
+    std::string,
+    std::function<cscript::cscript*(const char*, size_t)>
+> cscript_handlers = {
+    CSCRIPT_HANDLER("default", cscript::basic_cscript),
+    CSCRIPT_HANDLER("skit", cscript::skit_cscript)
+};
 
 int main(int argc, char** argv)
 {
-    if (argc != 2)
+    if (argc != 2 && argc != 3)
     {
-        fprintf(stderr, "usage: %s <script.so>\n", argv[0]);
+        fprintf(stderr, "usage: %s [skit] <script.so>\n", argv[0]);
         return 1;
     }
 
-    std::string filename = argv[1];
+    std::string script_type = argc == 3 ? argv[1] : "default";
+    std::string filename = argc == 3 ? argv[2] : argv[1];
     boost::iostreams::mapped_file_source src(filename);
+
+    if (cscript_handlers.find(script_type) == cscript_handlers.end())
+    {
+        std::cerr << "error: invalid script type " << script_type << std::endl;
+        return 4;
+    }
 
     try
     {
-        cscript::basic_cscript script(src.data(), src.size());
+        auto handler = cscript_handlers[script_type];
+        cscript::cscript* script = handler(src.data(), src.size());
         try
         {
-            script.run();
+            script->run();
         }
         catch (const cscript::exception& ex)
         {
-            std::cerr << script.curr_thread() << std::endl;
+            std::cerr << script->curr_thread() << std::endl;
             std::cerr << "runtime error: " << ex.message() << std::endl;
             return 3;
         }
