@@ -22,6 +22,8 @@ add_library(cscript SHARED
             scratchpad.hh
             skit-cscript.cc
             skit-cscript.hh
+            skit/syscalls.cc
+            skit/syscalls.hh
             stack.hh
             thread-context.hh
             type.hh
