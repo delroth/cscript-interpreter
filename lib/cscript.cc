@@ -68,6 +68,21 @@ bool cscript::done() const
     return true;
 }
 
+void cscript::schedule_next()
+{
+    uint16_t old_thread = current_thread_;
+    uint16_t chosen;
+
+    for (chosen = 1; chosen <= MAX_THREADS; ++chosen)
+    {
+        thread_context& th = threads_[(old_thread + chosen) % MAX_THREADS];
+        if (th.st & thread_state::RUNNABLE)
+            break;
+    }
+
+    current_thread_ = (old_thread + chosen) % MAX_THREADS;
+}
+
 void cscript::run_one_instr()
 {
     uint32_t opcode = read_code_at(curr_thread().pc++);

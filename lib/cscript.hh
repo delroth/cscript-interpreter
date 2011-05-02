@@ -118,16 +118,25 @@ public:
     }
 
     /**
+     * Schedule the next runnable thread.
+     */
+    void schedule_next();
+
+    /**
      * Runs the bytecode.
      */
     void run()
     {
         while (!done())
+        {
             run_one_instr();
+            if (curr_thread().yielding())
+                schedule_next();
+        }
     }
 
     /**
-     * Executes one instruction.
+     * Executes one instruction in the current thread.
      */
     void run_one_instr();
 
