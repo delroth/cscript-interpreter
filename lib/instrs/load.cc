@@ -23,9 +23,28 @@ void load_schar_handler(cscript& interp, uint32_t opcode)
 {
     load_immediate(interp, (int8_t)(opcode & 0xFF), type::SCHAR);
 }
-
 register_instruction load_schar_instr(0x02030000, 0xFFFF0000,
                                       load_schar_handler);
+
+void load_sword_handler(cscript& interp, uint32_t opcode)
+{
+    (void)opcode;
+
+    uint32_t value = interp.read_code_at(interp.curr_thread().pc++);
+    load_immediate(interp, value, type::SWORD);
+}
+register_instruction load_sword_instr(0x02070000, 0xFFFF0000,
+                                      load_sword_handler);
+
+void load_float_handler(cscript& interp, uint32_t opcode)
+{
+    (void)opcode;
+
+    uint32_t value = interp.read_code_at(interp.curr_thread().pc++);
+    load_immediate(interp, value, type::FLOAT);
+}
+register_instruction load_float_instr(0x02080000, 0xFFFF0000,
+                                      load_float_handler);
 
 void load_data_addr_handler(cscript& interp, uint32_t opcode)
 {
