@@ -4,6 +4,17 @@
 
 namespace cscript { namespace instruction {
 
+void nop_handler(cscript& interp, uint32_t opcode)
+{
+    // Still can't understand why the compiler generates this...
+    // Maybe in an older version it did something.
+
+    (void)interp;
+    (void)opcode;
+}
+
+register_instruction nop_instr(0x01060000, 0xFFFF0000, nop_handler);
+
 void exit_handler(cscript& interp, uint32_t opcode)
 {
     (void)opcode;
