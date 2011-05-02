@@ -56,6 +56,18 @@ void cscript::parse_bytecode(const char* buffer, size_t size)
     curr_thread().st = thread_state::RUNNABLE;
 }
 
+bool cscript::done() const
+{
+    if (done_)
+        return true;
+
+    for (const auto& thread : threads_)
+        if (thread.st & thread_state::RUNNABLE)
+            return false;
+
+    return true;
+}
+
 void cscript::run_one_instr()
 {
     uint32_t opcode = read_code_at(curr_thread().pc++);

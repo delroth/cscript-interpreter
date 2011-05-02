@@ -134,10 +134,7 @@ public:
     /**
      * Is the interpretation done or not?
      */
-    bool done() const
-    {
-        return done_;
-    }
+    bool done() const;
 
     /**
      * Exits the script interpretation.
