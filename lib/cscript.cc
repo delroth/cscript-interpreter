@@ -53,6 +53,7 @@ void cscript::parse_bytecode(const char* buffer, size_t size)
     data_sect_size_ = data_size;
 
     curr_thread().pc = initial_pc / 4;
+    curr_thread().st = thread_state::RUNNABLE;
 }
 
 void cscript::run_one_instr()

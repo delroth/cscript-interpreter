@@ -10,12 +10,45 @@ namespace cscript {
 
 const uint32_t MAX_THREADS = 0x20;
 
+/**
+ * Used to specify in which state the thread is currently.
+ */
+enum thread_state
+{
+    NOT_RUNNING = 0x0,
+    RUNNABLE = 0x1,
+    WAIT_FRAMES = 0x4,
+    WAIT_EVENT = 0x8,
+    RUNNING = 0x10
+};
+
 struct thread_context
 {
+    thread_context() : pc(0), st(thread_state::NOT_RUNNING), frames_to_wait(0),
+                       event_triggered(false), stk(), scratch()
+    {
+    }
+
     /**
      * The program counter, aka. where is the next instruction.
      */
     uint32_t pc;
+
+    /**
+     * The current state of the thread: whereas it can be run or is running,
+     * for example.
+     */
+    thread_state st;
+
+    /**
+     * For how much frames are we still waiting.
+     */
+    uint32_t frames_to_wait;
+
+    /**
+     * Has the event we are waiting for been triggered yet?
+     */
+    bool event_triggered;
 
     /**
      * The stack, which contains function arguments as well as return address
