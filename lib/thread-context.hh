@@ -30,6 +30,12 @@ struct thread_context
     }
 
     /**
+     * Check if the thread can still execute an instruction or if we should
+     * reschedule.
+     */
+    bool yielding();
+
+    /**
      * The program counter, aka. where is the next instruction.
      */
     uint32_t pc;
@@ -38,7 +44,7 @@ struct thread_context
      * The current state of the thread: whereas it can be run or is running,
      * for example.
      */
-    thread_state st;
+    uint8_t st;
 
     /**
      * For how much frames are we still waiting.

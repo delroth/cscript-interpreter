@@ -27,6 +27,7 @@ add_library(cscript SHARED
             skit/syscall-init.cc
             skit/syscall-init.hh
             stack.hh
+            thread-context.cc
             thread-context.hh
             type.hh
             variable.cc
