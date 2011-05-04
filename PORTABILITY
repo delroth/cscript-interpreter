@@ -1,0 +1,20 @@
+Portability considerations for the cscript interpreter
+======================================================
+
+1. Endian considerations
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+I try to think about endian problems when programming this interpreter, but
+as I don't have access to any big endian machine to test this at the
+moment, there may be places where the endianness is not correctly swapped.
+
+Inline functions are provided in the endian.hh file to swap from one endian
+to the other.
+
+2. Floating point types
+~~~~~~~~~~~~~~~~~~~~~~~
+
+In a lot of places, we consider that floating point types are 32 bit wide
+and can be placed in an union along with normal integer types. I'm not sure
+if it is the case everywhere (actually, I'm pretty sure that at least one
+strange platform will not agree with this behavior).
