@@ -7,10 +7,12 @@ add_library(cscript SHARED
             cscript.hh
             endian.hh
             exception.hh
+            instrs/compare.cc
             instrs/compute-index.cc
             instrs/compute-move.cc
             instrs/compute-utils.cc
             instrs/control-flow.cc
+            instrs/get-address.cc
             instrs/load.cc
             instrs/load-address.cc
             instrs/misc.cc
@@ -34,5 +36,6 @@ add_library(cscript SHARED
             thread-context.cc
             thread-context.hh
             type.hh
+            utils.hh
             variable.cc
             variable.hh)
