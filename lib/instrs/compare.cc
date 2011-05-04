@@ -8,7 +8,8 @@
 
 enum class compare_op
 {
-    LE
+    EQ,
+    LE,
 };
 
 namespace cscript { namespace instruction {
@@ -25,6 +26,8 @@ bool apply_op(compare_op op, T first_val, T second_val)
 {
     switch (op)
     {
+    case compare_op::EQ:
+        return (first_val == second_val);
     case compare_op::LE:
         return (first_val <= second_val);
     default:
@@ -74,12 +77,16 @@ void generic_compare_handler(cscript& interp, compare_op op)
     first.pointed_size = 4;
 }
 
-void le_handler(cscript& interp, uint32_t opcode)
-{
-    (void)opcode;
-    generic_compare_handler(interp, compare_op::LE);
-}
+#define COMPARE_HANDLER(Opcode, Oper) \
+    void Oper##_handler(cscript& interp, uint32_t opcode) \
+    { \
+        (void)opcode; \
+        generic_compare_handler(interp, compare_op::Oper); \
+    } \
+    \
+    register_instruction Oper##_instr(Opcode, 0xFFFF0000, Oper##_handler)
 
-register_instruction le_instr(0x01160000, 0xFFFF0000, le_handler);
+COMPARE_HANDLER(0x01140000, EQ);
+COMPARE_HANDLER(0x01160000, LE);
 
 }}
