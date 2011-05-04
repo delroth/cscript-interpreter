@@ -32,7 +32,7 @@ void load_ptr_handler(cscript& interp, uint32_t opcode)
     {
         var.address = 0;
         var.value.u32 = addr;
-        var.type = type::IMMEDIATE | (type & 0xF);
+        var.type = type::IMMEDIATE | type::POINTER | (type & 0xF);
     }
     else
     {
