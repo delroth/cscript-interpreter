@@ -1,3 +1,4 @@
+#include "../address.hh"
 #include "../cscript.hh"
 #include "../instruction-register.hh"
 #include "../type.hh"
@@ -14,10 +15,16 @@ void idx_handler(cscript& interp, uint32_t opcode)
 
     if (arr.type & type::POINTER)
     {
-        uint32_t addr = arr.value.u32 + idx.value.u32 * arr.pointed_size;
+        uint32_t off = idx.value.u32 * arr.pointed_size;
+        if (arr.value.u32 & address::STACK_FLAG)
+        {
+            if (off % 4 != 0)
+                throw exception("indexing stack with a non aligned offset");
+            off /= 4;
+        }
 
         arr.type &= 0xF;
-        arr.address = addr;
+        arr.address = arr.value.u32 + off;
         arr.value.u32 = arr.read_value_from_addr(interp);
     }
     else if (arr.type & type::POINTER2)
@@ -40,6 +47,14 @@ void rawidx_handler(cscript& interp, uint32_t opcode)
     uint8_t elem_type = opcode & 0xFF;
 
     variable& var = interp.curr_thread().scratch.top(1);
+
+    if (var.address & address::STACK_FLAG)
+    {
+        if (idx % 4 != 0)
+            throw exception("rawidx on stack non aligned");
+        idx /= 4;
+    }
+
     var.address += idx;
     var.type = (var.type & 0xFF00) | elem_type;
     var.pointed_size = elem_size;
