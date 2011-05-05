@@ -12,6 +12,7 @@ add_library(cscript SHARED
             instrs/compute-move.cc
             instrs/compute-utils.cc
             instrs/control-flow.cc
+            instrs/dereference.cc
             instrs/get-address.cc
             instrs/load.cc
             instrs/load-address.cc
