@@ -51,4 +51,19 @@ void jump_handler(cscript& interp, uint32_t opcode)
 
 register_instruction jump_instr(0x08000000, 0xFF000000, jump_handler);
 
+void jumpz_handler(cscript& interp, uint32_t opcode)
+{
+    (void)opcode;
+
+    uint32_t target = interp.read_code_at(interp.curr_thread().pc++);
+    if (target % 4 != 0)
+        throw exception("misaligned jumpz target");
+
+    variable& v = interp.curr_thread().scratch.top(0);
+    if (!v.value.u32)
+        interp.curr_thread().pc = target / 4;
+}
+
+register_instruction jumpz_instr(0x09000000, 0xFF000000, jumpz_handler);
+
 }}
