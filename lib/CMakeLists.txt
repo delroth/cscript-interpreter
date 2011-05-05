@@ -19,6 +19,7 @@ add_library(cscript SHARED
             instrs/logical.cc
             instrs/misc.cc
             instrs/stack.cc
+            instrs/unary.cc
             instruction-dispatcher.cc
             instruction-dispatcher.hh
             instruction-handler.hh
