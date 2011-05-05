@@ -5,6 +5,7 @@
 
 #include <map>
 #include <set>
+#include <sstream>
 
 namespace cscript {
 
@@ -68,6 +69,14 @@ uint32_t variable::read_value_from_addr(const cscript& interp) const
     else
     {
         const char* ptr = address::get_ptr(interp, this->address);
+        if (ptr == nullptr)
+        {
+            std::ostringstream oss;
+            oss << "unable to read to address ";
+            oss << std::hex << std::setw(8) << std::setfill('0') << this->address;
+            throw exception(oss.str());
+        }
+
         uint16_t t = this->type & 0xF;
         variable::value_type v;
 
@@ -112,6 +121,14 @@ void variable::write_value_to_addr(cscript& interp) const
         return;
 
     char* ptr = address::get_ptr(interp, this->address);
+    if (ptr == nullptr)
+    {
+        std::ostringstream oss;
+        oss << "unable to write to address ";
+        oss << std::hex << std::setw(8) << std::setfill('0') << this->address;
+        throw exception(oss.str());
+    }
+
     if (this->type & type::POINTER || this->type & type::POINTER3)
     {
         *((uint32_t*)ptr) = FLIP_ENDIAN(this->value.u32);
