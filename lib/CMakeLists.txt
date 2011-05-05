@@ -37,6 +37,7 @@ add_library(cscript SHARED
             stack.hh
             thread-context.cc
             thread-context.hh
+            type.cc
             type.hh
             utils.hh
             variable.cc

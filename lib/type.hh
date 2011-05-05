@@ -33,6 +33,11 @@ const uint8_t SWORD = 7;
 const uint8_t FLOAT = 8;
 const uint8_t ADDR = 12;
 
+/**
+ * Is the type trivially convertible to integer?
+ */
+bool trivially_integer(uint16_t type);
+
 }}
 
 #endif

@@ -41,13 +41,10 @@ void generic_compare_handler(cscript& interp, compare_op op)
     variable& first = interp.curr_thread().scratch.top(1);
     variable& second = interp.curr_thread().scratch.top(0);
 
+    bool first_is_int = type::trivially_integer(first.type);
     bool first_is_uint = false;
-    if ((first.type & type::POINTER) || (first.type & type::POINTER2))
+    if (first_is_int && uint_types.find(first.type) != uint_types.end())
         first_is_uint = true;
-    else if (uint_types.find(first.type) != uint_types.end())
-        first_is_uint = true;
-
-    bool first_is_int = (first.type != type::FLOAT);
 
     bool result;
     if (first_is_uint)
