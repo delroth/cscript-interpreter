@@ -38,6 +38,14 @@ uint32_t variable::cast_to(uint16_t wanted_type) const
     return bitcaster.u32;
 }
 
+bool variable::boolean_value() const
+{
+    if ((this->type & type::POINTER) || (this->type & type::POINTER2))
+        return true;
+    else
+        return !!(this->value.u32);
+}
+
 uint32_t variable::read_value_from_addr(const cscript& interp) const
 {
     const static std::set<uint16_t> imm_types = {

@@ -15,6 +15,7 @@ add_library(cscript SHARED
             instrs/get-address.cc
             instrs/load.cc
             instrs/load-address.cc
+            instrs/logical.cc
             instrs/misc.cc
             instrs/stack.cc
             instruction-dispatcher.cc

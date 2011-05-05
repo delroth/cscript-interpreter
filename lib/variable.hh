@@ -30,6 +30,11 @@ struct variable
     uint32_t cast_to(uint16_t type) const;
 
     /**
+     * Cast a variable to a boolean value.
+     */
+    bool boolean_value() const;
+
+    /**
      * Reads the variable value from its address.
      */
     uint32_t read_value_from_addr(const cscript& interp) const;

@@ -37,8 +37,6 @@ bool apply_op(compare_op op, T first_val, T second_val)
 
 void generic_compare_handler(cscript& interp, compare_op op)
 {
-    (void)op;
-
     interp.curr_thread().scratch.pop();
     variable& first = interp.curr_thread().scratch.top(1);
     variable& second = interp.curr_thread().scratch.top(0);
