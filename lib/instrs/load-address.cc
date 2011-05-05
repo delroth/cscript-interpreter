@@ -11,6 +11,7 @@ void load_ptr_handler(cscript& interp, uint32_t opcode)
     bool load_stack = (opcode & 0xFF000000) == 0x03000000;
     uint32_t offset = interp.read_code_at(interp.curr_thread().pc++);
     uint8_t type = (opcode >> 16) & 0xFF;
+    uint16_t pointed_size = (opcode & 0xFFFF);
     variable& var = interp.curr_thread().scratch.top(0);
 
     uint32_t addr;
@@ -28,6 +29,7 @@ void load_ptr_handler(cscript& interp, uint32_t opcode)
         addr = address::make_data_addr(offset);
     }
 
+    var.pointed_size = pointed_size;
     if (type & type::POINTER3)
     {
         var.address = 0;
