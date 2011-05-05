@@ -46,6 +46,14 @@ bool variable::boolean_value() const
         return !!(this->value.u32);
 }
 
+// This is so ugly...
+#define FLIP_ENDIAN(v) (([&]() { \
+    if (this->address & address::DATA_FLAG) \
+        return endian::from_big(v); \
+    else \
+        return v; \
+    })())
+
 uint32_t variable::read_value_from_addr(const cscript& interp) const
 {
     const static std::set<uint16_t> imm_types = {
@@ -74,20 +82,20 @@ uint32_t variable::read_value_from_addr(const cscript& interp) const
             break;
 
         case type::UHALF:
-            v.u32 = endian::from_big(*((const uint16_t*)ptr));
+            v.u32 = FLIP_ENDIAN(*((const uint16_t*)ptr));
             break;
 
         case type::SHALF:
-            v.s32 = (int16_t)endian::from_big(*((const uint16_t*)ptr));
+            v.s32 = (int16_t)FLIP_ENDIAN(*((const uint16_t*)ptr));
             break;
 
         case type::FLOAT:
         case type::UWORD:
-            v.u32 = endian::from_big(*((const uint32_t*)ptr));
+            v.u32 = FLIP_ENDIAN(*((const uint32_t*)ptr));
             break;
 
         case type::SWORD:
-            v.s32 = (int32_t)endian::from_big(*((const uint32_t*)ptr));
+            v.s32 = (int32_t)FLIP_ENDIAN(*((const uint32_t*)ptr));
             break;
 
         default:
@@ -106,7 +114,7 @@ void variable::write_value_to_addr(cscript& interp) const
     char* ptr = address::get_ptr(interp, this->address);
     if (this->type & type::POINTER || this->type & type::POINTER3)
     {
-        *((uint32_t*)ptr) = this->value.u32;
+        *((uint32_t*)ptr) = FLIP_ENDIAN(this->value.u32);
         return;
     }
 
@@ -119,16 +127,13 @@ void variable::write_value_to_addr(cscript& interp) const
 
     case type::SHALF:
     case type::UHALF:
-        *((uint16_t*)ptr) = this->value.u32;
+        *((uint16_t*)ptr) = FLIP_ENDIAN((uint16_t)this->value.u32);
         break;
 
     case type::SWORD:
     case type::UWORD:
-        *((uint32_t*)ptr) = this->value.u32;
-        break;
-
     case type::FLOAT:
-        *((float*)ptr) = this->value.f32;
+        *((uint32_t*)ptr) = FLIP_ENDIAN(this->value.u32);
         break;
     }
 }
