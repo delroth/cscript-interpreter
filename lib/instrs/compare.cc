@@ -11,6 +11,8 @@ enum class compare_op
     EQ,
     NE,
     LE,
+    GE,
+    LT,
     GT,
 };
 
@@ -34,6 +36,10 @@ bool apply_op(compare_op op, T first_val, T second_val)
         return (first_val != second_val);
     case compare_op::LE:
         return (first_val <= second_val);
+    case compare_op::GE:
+        return (first_val >= second_val);
+    case compare_op::LT:
+        return (first_val < second_val);
     case compare_op::GT:
         return (first_val > second_val);
     default:
@@ -79,17 +85,20 @@ void generic_compare_handler(cscript& interp, compare_op op)
 }
 
 #define COMPARE_HANDLER(Opcode, Oper) \
-    void Oper##_handler(cscript& interp, uint32_t opcode) \
+    void Oper##_##Opcode##_handler(cscript& interp, uint32_t opcode) \
     { \
         (void)opcode; \
         generic_compare_handler(interp, compare_op::Oper); \
     } \
     \
-    register_instruction Oper##_instr(Opcode, 0xFFFF0000, Oper##_handler)
+    register_instruction Oper##_##Opcode##_instr(Opcode, 0xFFFF0000, \
+                                                 Oper##_##Opcode##_handler)
 
 COMPARE_HANDLER(0x01140000, EQ);
 COMPARE_HANDLER(0x01150000, NE);
 COMPARE_HANDLER(0x01160000, LE);
+COMPARE_HANDLER(0x01170000, GE);
 COMPARE_HANDLER(0x01180000, GT);
+COMPARE_HANDLER(0x01190000, LT);
 
 }}

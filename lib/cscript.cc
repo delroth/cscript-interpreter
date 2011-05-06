@@ -89,6 +89,8 @@ void cscript::schedule_next()
 void cscript::run_one_instr()
 {
     //std::cerr << curr_thread();
+    //std::cout << std::hex << std::setw(8) << std::setfill('0');
+    //std::cout << (curr_thread().pc * 4) << std::endl;
     uint32_t opcode = read_code_at(curr_thread().pc++);
     boost::optional<instruction::handler> handler;
 
