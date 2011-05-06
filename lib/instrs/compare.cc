@@ -10,6 +10,7 @@ enum class compare_op
 {
     EQ,
     LE,
+    GT,
 };
 
 namespace cscript { namespace instruction {
@@ -30,6 +31,8 @@ bool apply_op(compare_op op, T first_val, T second_val)
         return (first_val == second_val);
     case compare_op::LE:
         return (first_val <= second_val);
+    case compare_op::GT:
+        return (first_val > second_val);
     default:
         return false;
     }
@@ -83,5 +86,6 @@ void generic_compare_handler(cscript& interp, compare_op op)
 
 COMPARE_HANDLER(0x01140000, EQ);
 COMPARE_HANDLER(0x01160000, LE);
+COMPARE_HANDLER(0x01180000, GT);
 
 }}
