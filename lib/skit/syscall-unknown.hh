@@ -18,7 +18,8 @@ UNKNOWN_DECL(6, 0x70)
 UNKNOWN_DECL(7, 0x72)
 UNKNOWN_DECL(8, 0x73)
 UNKNOWN_DECL(9, 0x77)
-UNKNOWN_DECL(10, 0x7f)
+UNKNOWN_DECL(10, 0x7e)
+UNKNOWN_DECL(11, 0x7f)
 
 const uint16_t SKIT_INITSOMETHING_ID = 0x64;
 void skit_initsomething(cscript& script, const std::vector<uint32_t>& args);
