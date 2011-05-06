@@ -8,6 +8,7 @@ enum class arith_op
 {
     PLUS,
     MINUS,
+    TIMES,
 };
 
 namespace cscript { namespace instruction {
@@ -21,6 +22,8 @@ T apply_op(arith_op op, T first_val, T second_val)
         return (first_val + second_val);
     case arith_op::MINUS:
         return (first_val - second_val);
+    case arith_op::TIMES:
+        return (first_val * second_val);
     default:
         throw exception("unknown arithmetic operator used");
     }
@@ -65,6 +68,7 @@ void generic_arith_handler(cscript& interp, arith_op op)
                                                  Oper##_##Opcode##_handler);
 
 ARITH_HANDLER(0x010A0000, PLUS);
+ARITH_HANDLER(0x011C0000, TIMES);
 ARITH_HANDLER(0x011F0000, PLUS);
 ARITH_HANDLER(0x01200000, MINUS);
 
