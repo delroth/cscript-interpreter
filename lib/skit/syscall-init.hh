@@ -6,7 +6,7 @@
 namespace cscript { namespace skit { namespace syscalls {
 
 const uint16_t SKIT_INIT_ID = 0x79;
-void skit_init(cscript& script);
+void skit_init(cscript& script, const std::vector<uint32_t>& args);
 
 }}}
 

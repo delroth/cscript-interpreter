@@ -53,7 +53,8 @@ public:
     /**
      * Handles a syscall. To be implemented in subclasses.
      */
-    virtual void handle_syscall(uint16_t syscall) = 0;
+    virtual void handle_syscall(uint16_t syscall,
+                                const std::vector<uint32_t>& args) = 0;
 
     /**
      * Read an uint32_t from the code section.

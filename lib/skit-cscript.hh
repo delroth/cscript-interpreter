@@ -16,7 +16,8 @@ public:
     {
     }
 
-    virtual void handle_syscall(uint16_t syscall);
+    virtual void handle_syscall(uint16_t syscall,
+                                const std::vector<uint32_t>& args);
 };
 
 }

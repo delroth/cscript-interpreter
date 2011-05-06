@@ -3,8 +3,10 @@
 
 namespace cscript { namespace skit { namespace syscalls {
 
-void skit_unknown(cscript& script)
+void skit_unknown(cscript& script, const std::vector<uint32_t>& args)
 {
+    (void)args;
+
     // TODO: stub
     variable& v = script.curr_thread().scratch.top(0);
 
@@ -15,8 +17,10 @@ void skit_unknown(cscript& script)
     script.curr_thread().scratch.push();
 }
 
-void skit_unknown2(cscript& script)
+void skit_unknown2(cscript& script, const std::vector<uint32_t>& args)
 {
+    (void)args;
+
     // TODO: stub
     variable& v = script.curr_thread().scratch.top(0);
 

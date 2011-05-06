@@ -12,9 +12,15 @@ void call_handler(cscript& interp, uint32_t opcode)
     uint32_t target = interp.read_code_at(interp.curr_thread().pc++);
     if (target == 0xFFFFFFFF)
     {
-        // TODO: Handle arguments?
+        std::vector<uint32_t> args;
         uint16_t syscall_id = opcode & 0xFFFF;
-        interp.handle_syscall(syscall_id);
+        uint8_t nargs = (opcode & 0x00FF0000) >> 16;
+        args.reserve(nargs);
+
+        uint32_t arg_pos = interp.curr_thread().stk.top() - 1;
+        for (uint8_t i = 0; i < nargs; ++i)
+            args.push_back(interp.curr_thread().stk.at(arg_pos--));
+        interp.handle_syscall(syscall_id, args);
     }
     else if (target % 4 != 0)
         throw exception("misaligned call target");

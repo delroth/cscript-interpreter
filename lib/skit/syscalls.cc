@@ -7,18 +7,20 @@
 
 namespace cscript { namespace skit {
 
-std::map<uint16_t, std::function<void(cscript&)>> handlers = {
+typedef std::function<void(cscript&, const std::vector<uint32_t>&)> handler;
+std::map<uint16_t, handler> handlers = {
     { syscalls::SKIT_INIT_ID, syscalls::skit_init },
     { syscalls::SKIT_WAIT_ID, syscalls::skit_wait },
     { syscalls::SKIT_UNKNOWN_ID, syscalls::skit_unknown },
     { syscalls::SKIT_UNKNOWN2_ID, syscalls::skit_unknown2 },
 };
 
-bool execute_syscall(cscript& script, uint16_t syscall)
+bool execute_syscall(cscript& script, uint16_t syscall,
+                     const std::vector<uint32_t>& args)
 {
     if (handlers.find(syscall) == handlers.end())
         return false;
-    handlers[syscall](script);
+    handlers[syscall](script, args);
     return true;
 }
 

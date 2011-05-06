@@ -3,8 +3,10 @@
 
 namespace cscript { namespace skit { namespace syscalls {
 
-void skit_wait(cscript& script)
+void skit_wait(cscript& script, const std::vector<uint32_t>& args)
 {
+    (void)args;
+
     // There is nothing to wait for currently. Just set to waiting state and
     // set the event flag directly.
     script.curr_thread().st |= thread_state::WAIT_EVENT;

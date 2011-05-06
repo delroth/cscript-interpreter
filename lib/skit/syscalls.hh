@@ -5,7 +5,8 @@
 
 namespace cscript { namespace skit {
 
-bool execute_syscall(cscript& script, uint16_t syscall);
+bool execute_syscall(cscript& script, uint16_t syscall,
+                     const std::vector<uint32_t>& args);
 
 }}
 
