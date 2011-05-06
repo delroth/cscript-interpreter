@@ -12,8 +12,10 @@ namespace cscript { namespace skit { namespace syscalls {
 UNKNOWN_DECL(1, 0x6B)
 UNKNOWN_DECL(2, 0x6D)
 UNKNOWN_DECL(3, 0x6F)
-UNKNOWN_DECL(4, 0x72)
-UNKNOWN_DECL(5, 0x73)
+UNKNOWN_DECL(4, 0x70)
+UNKNOWN_DECL(5, 0x72)
+UNKNOWN_DECL(6, 0x73)
+UNKNOWN_DECL(7, 0x77)
 
 const uint16_t SKIT_INITSOMETHING_ID = 0x64;
 void skit_initsomething(cscript& script, const std::vector<uint32_t>& args);

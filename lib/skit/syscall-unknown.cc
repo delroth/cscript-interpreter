@@ -26,6 +26,8 @@ UNKNOWN_HANDLER(2)
 UNKNOWN_HANDLER(3)
 UNKNOWN_HANDLER(4)
 UNKNOWN_HANDLER(5)
+UNKNOWN_HANDLER(6)
+UNKNOWN_HANDLER(7)
 
 std::map<uint32_t, std::pair<float, float>> init_values;
 
