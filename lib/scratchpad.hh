@@ -56,9 +56,8 @@ public:
      */
     void pop()
     {
-        if (idx_ == 0)
-            throw scratchpad_exception("scratchpad underflow while popping");
-        idx_--;
+        if (idx_ > 0)
+            idx_--;
     }
 
     /**
