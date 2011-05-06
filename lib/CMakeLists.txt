@@ -8,6 +8,7 @@ add_library(cscript SHARED
             endian.hh
             exception.hh
             instrs/arith.cc
+            instrs/cast.cc
             instrs/compare.cc
             instrs/compute-index.cc
             instrs/compute-move.cc
