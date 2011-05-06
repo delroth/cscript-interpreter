@@ -13,6 +13,7 @@ std::map<uint16_t, handler> handlers = {
     { syscalls::SKIT_INIT_ID, syscalls::skit_init },
     { syscalls::SKIT_WAIT_ID, syscalls::skit_wait },
     { syscalls::SKIT_WAIT2_ID, syscalls::skit_wait },
+    { syscalls::SKIT_WAIT3_ID, syscalls::skit_wait },
     { syscalls::SKIT_UNKNOWN1_ID, syscalls::skit_unknown1 },
     { syscalls::SKIT_UNKNOWN2_ID, syscalls::skit_unknown2 },
     { syscalls::SKIT_UNKNOWN3_ID, syscalls::skit_unknown3 },

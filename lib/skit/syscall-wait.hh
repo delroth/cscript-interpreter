@@ -7,6 +7,7 @@ namespace cscript { namespace skit { namespace syscalls {
 
 const uint16_t SKIT_WAIT_ID = 0x7A;
 const uint16_t SKIT_WAIT2_ID = 0x7B;
+const uint16_t SKIT_WAIT3_ID = 0x69;
 void skit_wait(cscript& script, const std::vector<uint32_t>& args);
 
 }}}
