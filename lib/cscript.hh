@@ -161,6 +161,14 @@ public:
     }
 
     /**
+     * Gets the data section size.
+     */
+    size_t data_size() const
+    {
+        return data_sect_size_;
+    }
+
+    /**
      * Initializes a cscript object from a buffer containing bytecode.
      * Does not take ownership of the buffer.
      *

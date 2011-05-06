@@ -47,6 +47,18 @@ inline uint32_t make_stack_addr(uint16_t thread_id, uint32_t offset)
 char* get_ptr(cscript& script, uint32_t address);
 const char* get_ptr(const cscript& script, uint32_t address);
 
+/**
+ * Reads an uint32_t at the specified address. Correctly handles endianness
+ * when reading in the data section.
+ */
+uint32_t uword_at(cscript& script, uint32_t address);
+
+/**
+ * Offset an address by a certain amount in bytes.
+ * Correctly handles the fact that stack addresses are in words, not bytes.
+ */
+uint32_t offset(uint32_t address, int32_t off);
+
 }}
 
 #endif

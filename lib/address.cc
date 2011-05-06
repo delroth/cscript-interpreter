@@ -1,4 +1,5 @@
 #include "address.hh"
+#include "endian.hh"
 
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/add_const.hpp>
@@ -34,6 +35,27 @@ char* get_ptr(cscript& script, uint32_t address)
 const char* get_ptr(const cscript& script, uint32_t address)
 {
     return generic_get_ptr<boost::add_const>(script, address);
+}
+
+uint32_t uword_at(cscript& script, uint32_t address)
+{
+    const char* ptr = get_ptr(script, address);
+    uint32_t u = *((const uint32_t*)ptr);
+    if (address & DATA_FLAG)
+        u = endian::from_big(u);
+    return u;
+}
+
+uint32_t offset(uint32_t address, int32_t off)
+{
+    if (address & STACK_FLAG)
+    {
+        if (off % 4 != 0)
+            throw exception("offseting a stack addr by a non 4-aligned val");
+        off /= 4;
+    }
+
+    return address + off;
 }
 
 }}
