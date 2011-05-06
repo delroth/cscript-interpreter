@@ -14,6 +14,7 @@ std::map<uint16_t, handler> handlers = {
     { syscalls::SKIT_UNKNOWN_ID, syscalls::skit_unknown },
     { syscalls::SKIT_UNKNOWN2_ID, syscalls::skit_unknown2 },
     { syscalls::SKIT_UNKNOWN3_ID, syscalls::skit_unknown3 },
+    { syscalls::SKIT_UNKNOWN4_ID, syscalls::skit_unknown4 },
 };
 
 bool execute_syscall(cscript& script, uint16_t syscall,
