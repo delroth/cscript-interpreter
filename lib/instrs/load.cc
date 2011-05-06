@@ -26,6 +26,13 @@ void load_schar_handler(cscript& interp, uint32_t opcode)
 register_instruction load_schar_instr(0x02030000, 0xFFFF0000,
                                       load_schar_handler);
 
+void load_shalf_handler(cscript& interp, uint32_t opcode)
+{
+    load_immediate(interp, (int16_t)(opcode & 0xFFFF), type::SHALF);
+}
+register_instruction load_shalf_instr(0x02050000, 0xFFFF0000,
+                                      load_shalf_handler);
+
 void load_sword_handler(cscript& interp, uint32_t opcode)
 {
     (void)opcode;
