@@ -96,6 +96,7 @@ void generic_arith_handler(cscript& interp, arith_op op)
                                                  Oper##_##Opcode##_handler);
 
 ARITH_HANDLER(0x010A0000, PLUS, true, true);
+ARITH_HANDLER(0x010B0000, MINUS, true, true);
 ARITH_HANDLER(0x011C0000, TIMES, true, false);
 ARITH_HANDLER(0x011D0000, DIV, true, false);
 ARITH_HANDLER(0x011E0000, MOD, false, false);
