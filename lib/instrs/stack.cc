@@ -24,8 +24,8 @@ register_instruction unreserve_instr(0x10000000, 0xFF000000, unreserve_handler);
 void push_handler(cscript& interp, uint32_t opcode)
 {
     uint16_t dest_type = opcode & 0xFFFF;
-    uint32_t resulting_value = 0;
     variable& var = interp.curr_thread().scratch.top(0);
+    uint32_t resulting_value = var.value.u32;
 
     if (dest_type != 0)
         resulting_value = var.cast_to(dest_type);
