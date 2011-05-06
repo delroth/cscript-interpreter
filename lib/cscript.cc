@@ -118,7 +118,7 @@ bool cscript::handle_common_syscall(uint16_t syscall,
         boost::format fmt(fmt_string);
         for (unsigned int i = 1; i < args.size(); ++i)
             fmt = fmt % args[i];
-        std::cerr << "[log] " << fmt << std::endl;
+        std::cerr << "[log] " << fmt;
     }
     else
         return false;
