@@ -136,9 +136,10 @@ public:
     {
         while (!done())
         {
-            run_one_instr();
             if (curr_thread().yielding())
                 schedule_next();
+            else
+                run_one_instr();
         }
     }
 
