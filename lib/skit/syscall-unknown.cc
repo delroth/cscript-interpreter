@@ -29,15 +29,21 @@ UNKNOWN_HANDLER(5)
 UNKNOWN_HANDLER(6)
 UNKNOWN_HANDLER(7)
 
-std::map<uint32_t, std::pair<float, float>> init_values;
+struct something
+{
+    float x, y;
+    uint32_t something;
+};
+
+std::map<uint32_t, something> init_values;
 
 void skit_initsomething(cscript& script, const std::vector<uint32_t>& args)
 {
     uint32_t id = args[0];
-    float f1 = utils::float_from_u32(args[2]);
-    float f2 = utils::float_from_u32(args[3]);
+    float x = utils::float_from_u32(args[2]);
+    float y = utils::float_from_u32(args[3]);
 
-    init_values[id] = std::make_pair(f1, f2);
+    init_values[id] = { x, y, args[4] };
 
     variable& v = script.curr_thread().scratch.top(0);
 
@@ -51,14 +57,14 @@ void skit_initsomething(cscript& script, const std::vector<uint32_t>& args)
 
 void skit_getsomething(cscript& script, const std::vector<uint32_t>& args)
 {
-    float* ptr1 = (float*)address::get_ptr(script, args[1]);
-    float* ptr2 = (float*)address::get_ptr(script, args[2]);
+    float* px = (float*)address::get_ptr(script, args[1]);
+    float* py = (float*)address::get_ptr(script, args[2]);
 
     auto it = init_values.find(args[0]);
     if (it == init_values.end())
         throw exception("unable to find the float values");
-    *ptr1 = it->second.first;
-    *ptr2 = it->second.second;
+    *px = it->second.x;
+    *py = it->second.y;
 
     variable& v = script.curr_thread().scratch.top(0);
 
@@ -73,10 +79,11 @@ void skit_getsomething(cscript& script, const std::vector<uint32_t>& args)
 void skit_setsomething(cscript& script, const std::vector<uint32_t>& args)
 {
     uint32_t id = args[0];
-    float f1 = utils::float_from_u32(args[1]);
-    float f2 = utils::float_from_u32(args[2]);
+    float x = utils::float_from_u32(args[1]);
+    float y = utils::float_from_u32(args[2]);
 
-    init_values[id] = std::make_pair(f1, f2);
+    init_values[id].x = x;
+    init_values[id].y = y;
 
     variable& v = script.curr_thread().scratch.top(0);
 
