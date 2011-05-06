@@ -100,4 +100,13 @@ void cscript::run_one_instr()
         (*handler)(*this, opcode);
 }
 
+bool cscript::handle_common_syscall(uint16_t syscall,
+                                    const std::vector<uint32_t>& args)
+{
+    (void)syscall;
+    (void)args;
+
+    return false;
+}
+
 }

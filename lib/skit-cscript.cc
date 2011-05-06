@@ -8,6 +8,9 @@ namespace cscript {
 void skit_cscript::handle_syscall(uint16_t syscall,
                                   const std::vector<uint32_t>& args)
 {
+    if (handle_common_syscall(syscall, args))
+        return;
+
     if (!skit::execute_syscall(*this, syscall, args))
     {
         std::ostringstream oss;

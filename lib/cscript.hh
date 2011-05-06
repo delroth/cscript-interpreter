@@ -57,6 +57,12 @@ public:
                                 const std::vector<uint32_t>& args) = 0;
 
     /**
+     * Handles all common syscalls (which have negative ids).
+     */
+    bool handle_common_syscall(uint16_t syscall,
+                               const std::vector<uint32_t>& args);
+
+    /**
      * Read an uint32_t from the code section.
      *
      * @param idx The index of the code in the section.
