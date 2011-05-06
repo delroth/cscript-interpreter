@@ -17,7 +17,7 @@ void call_handler(cscript& interp, uint32_t opcode)
         uint8_t nargs = (opcode & 0x00FF0000) >> 16;
         args.reserve(nargs);
 
-        uint32_t arg_pos = interp.curr_thread().stk.top() - 1;
+        uint32_t arg_pos = interp.curr_thread().stk.top() + nargs - 1;
         for (uint8_t i = 0; i < nargs; ++i)
             args.push_back(interp.curr_thread().stk.at(arg_pos--));
         interp.handle_syscall(syscall_id, args);
