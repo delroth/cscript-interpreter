@@ -10,6 +10,7 @@ enum class arith_op
     MINUS,
     TIMES,
     MOD,
+    DIV,
 };
 
 namespace cscript { namespace instruction {
@@ -25,6 +26,10 @@ T apply_op_gen(arith_op op, T first_val, T second_val)
         return (first_val - second_val);
     case arith_op::TIMES:
         return (first_val * second_val);
+    case arith_op::DIV:
+        if (second_val == 0)
+            throw exception("division by zero");
+        return (first_val / second_val);
     default:
         throw exception("unknown arithmetic operator used");
     }
@@ -91,6 +96,7 @@ void generic_arith_handler(cscript& interp, arith_op op)
 
 ARITH_HANDLER(0x010A0000, PLUS, true);
 ARITH_HANDLER(0x011C0000, TIMES, true);
+ARITH_HANDLER(0x011D0000, DIV, true);
 ARITH_HANDLER(0x011E0000, MOD, false);
 ARITH_HANDLER(0x011F0000, PLUS, true);
 ARITH_HANDLER(0x01200000, MINUS, true);
