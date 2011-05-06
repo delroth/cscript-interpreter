@@ -7,6 +7,7 @@
 enum class arith_op
 {
     PLUS,
+    MINUS,
 };
 
 namespace cscript { namespace instruction {
@@ -18,6 +19,8 @@ T apply_op(arith_op op, T first_val, T second_val)
     {
     case arith_op::PLUS:
         return (first_val + second_val);
+    case arith_op::MINUS:
+        return (first_val - second_val);
     default:
         throw exception("unknown arithmetic operator used");
     }
@@ -52,14 +55,17 @@ void generic_arith_handler(cscript& interp, arith_op op)
 }
 
 #define ARITH_HANDLER(Opcode, Oper) \
-    void Oper##_handler(cscript& interp, uint32_t opcode) \
+    void Oper##_##Opcode##_handler(cscript& interp, uint32_t opcode) \
     { \
         (void)opcode; \
         generic_arith_handler(interp, arith_op::Oper); \
     } \
     \
-    register_instruction Oper##_instr(Opcode, 0xFFFF0000, Oper##_handler);
+    register_instruction Oper##_##Opcode##_instr(Opcode, 0xFFFF0000, \
+                                                 Oper##_##Opcode##_handler);
 
 ARITH_HANDLER(0x010A0000, PLUS);
+ARITH_HANDLER(0x011F0000, PLUS);
+ARITH_HANDLER(0x01200000, MINUS);
 
 }}
