@@ -12,8 +12,9 @@ namespace cscript { namespace skit { namespace syscalls {
 UNKNOWN_DECL(1, 0x64)
 UNKNOWN_DECL(2, 0x6B)
 UNKNOWN_DECL(3, 0x6D)
-UNKNOWN_DECL(4, 0x72)
-UNKNOWN_DECL(5, 0x73)
+UNKNOWN_DECL(4, 0x6F)
+UNKNOWN_DECL(5, 0x72)
+UNKNOWN_DECL(6, 0x73)
 
 }}}
 
