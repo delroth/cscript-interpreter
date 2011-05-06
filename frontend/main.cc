@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <iostream>
 #include <map>
+#include <memory>
 #include <string>
 
 #define CSCRIPT_HANDLER(name, klass) \
@@ -41,14 +42,14 @@ int main(int argc, char** argv)
     try
     {
         auto handler = cscript_handlers[script_type];
-        cscript::cscript* script = handler(src.data(), src.size());
+        std::shared_ptr<cscript::cscript> scr(handler(src.data(), src.size()));
         try
         {
-            script->run();
+            scr->run();
         }
         catch (const cscript::exception& ex)
         {
-            std::cerr << script->curr_thread() << std::endl;
+            std::cerr << scr->curr_thread() << std::endl;
             std::cerr << "runtime error: " << ex.message() << std::endl;
             return 3;
         }
