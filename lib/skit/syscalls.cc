@@ -11,10 +11,11 @@ typedef std::function<void(cscript&, const std::vector<uint32_t>&)> handler;
 std::map<uint16_t, handler> handlers = {
     { syscalls::SKIT_INIT_ID, syscalls::skit_init },
     { syscalls::SKIT_WAIT_ID, syscalls::skit_wait },
-    { syscalls::SKIT_UNKNOWN_ID, syscalls::skit_unknown },
+    { syscalls::SKIT_UNKNOWN1_ID, syscalls::skit_unknown1 },
     { syscalls::SKIT_UNKNOWN2_ID, syscalls::skit_unknown2 },
     { syscalls::SKIT_UNKNOWN3_ID, syscalls::skit_unknown3 },
     { syscalls::SKIT_UNKNOWN4_ID, syscalls::skit_unknown4 },
+    { syscalls::SKIT_UNKNOWN5_ID, syscalls::skit_unknown5 },
 };
 
 bool execute_syscall(cscript& script, uint16_t syscall,

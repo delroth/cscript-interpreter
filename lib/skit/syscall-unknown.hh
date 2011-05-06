@@ -5,17 +5,15 @@
 
 namespace cscript { namespace skit { namespace syscalls {
 
-const uint16_t SKIT_UNKNOWN_ID = 0x64;
-void skit_unknown(cscript& script, const std::vector<uint32_t>& args);
+#define UNKNOWN_DECL(n, id) \
+    const uint16_t SKIT_UNKNOWN##n##_ID = id; \
+    void skit_unknown##n(cscript& script, const std::vector<uint32_t>& args);
 
-const uint16_t SKIT_UNKNOWN2_ID = 0x6D;
-void skit_unknown2(cscript& script, const std::vector<uint32_t>& args);
-
-const uint16_t SKIT_UNKNOWN3_ID = 0x73;
-void skit_unknown3(cscript& script, const std::vector<uint32_t>& args);
-
-const uint16_t SKIT_UNKNOWN4_ID = 0x6B;
-void skit_unknown4(cscript& script, const std::vector<uint32_t>& args);
+UNKNOWN_DECL(1, 0x64)
+UNKNOWN_DECL(2, 0x6B)
+UNKNOWN_DECL(3, 0x6D)
+UNKNOWN_DECL(4, 0x72)
+UNKNOWN_DECL(5, 0x73)
 
 }}}
 
