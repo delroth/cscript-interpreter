@@ -31,6 +31,8 @@ add_library(cscript SHARED
             skit/syscalls.hh
             skit/syscall-init.cc
             skit/syscall-init.hh
+            skit/syscall-say.cc
+            skit/syscall-say.hh
             skit/syscall-unknown.cc
             skit/syscall-unknown.hh
             skit/syscall-wait.cc
