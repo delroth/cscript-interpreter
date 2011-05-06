@@ -27,7 +27,7 @@ bool thread_context::yielding()
         {
             st &= ~thread_state::WAIT_EVENT;
             event_triggered = false;
-            return false;
+            return true;
         }
     }
     else
