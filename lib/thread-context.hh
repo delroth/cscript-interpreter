@@ -49,7 +49,7 @@ struct thread_context
     /**
      * For how much frames are we still waiting.
      */
-    uint32_t frames_to_wait;
+    int32_t frames_to_wait;
 
     /**
      * Has the event we are waiting for been triggered yet?

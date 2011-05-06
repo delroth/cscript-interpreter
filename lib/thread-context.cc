@@ -13,6 +13,7 @@ bool thread_context::yielding()
         }
         else
         {
+            frames_to_wait = 0;
             st &= ~thread_state::WAIT_FRAMES;
             return false;
         }
