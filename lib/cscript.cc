@@ -2,6 +2,7 @@
 #include "endian.hh"
 #include "instruction-dispatcher.hh"
 #include "instruction-handler.hh"
+#include "type.hh"
 
 #include <cstring>
 #include <sstream>
@@ -103,10 +104,22 @@ void cscript::run_one_instr()
 bool cscript::handle_common_syscall(uint16_t syscall,
                                     const std::vector<uint32_t>& args)
 {
-    (void)syscall;
-    (void)args;
+    if (syscall == 0xFFFD)
+    {
+        curr_thread().frames_to_wait = args[0];
+        curr_thread().st |= thread_state::WAIT_FRAMES;
+    }
+    else
+        return false;
 
-    return false;
+    variable& v = curr_thread().scratch.top(0);
+    v.value.u32 = 0;
+    v.address = 0;
+    v.type = type::IMMEDIATE | type::SWORD;
+    v.pointed_size = 4;
+    curr_thread().scratch.push();
+
+    return true;
 }
 
 }
