@@ -50,8 +50,6 @@ void get_field_handler(cscript& interp, uint32_t opcode)
     }
     else if (v.type & type::POINTER3)
         throw exception("getting a pointer3 field is not yet supported");
-
-    std::cerr << interp.curr_thread();
 }
 
 register_instruction get_field_instr(0x012B0000, 0xFFFF0000, get_field_handler);
