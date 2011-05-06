@@ -51,7 +51,7 @@ float apply_op_float(arith_op op, float first_val, float second_val)
     return apply_op_gen<float>(op, first_val, second_val);
 }
 
-template <bool AllowFloats>
+template <bool AllowFloats, bool UpdateMem>
 void generic_arith_handler(cscript& interp, arith_op op)
 {
     interp.curr_thread().scratch.pop();
@@ -81,24 +81,25 @@ void generic_arith_handler(cscript& interp, arith_op op)
         throw exception("unexpected type in arithmetic operation");
     }
 
-    first.write_value_to_addr(interp);
+    if (UpdateMem)
+        first.write_value_to_addr(interp);
 }
 
-#define ARITH_HANDLER(Opcode, Oper, AllowFloats) \
+#define ARITH_HANDLER(Opcode, Oper, AllowFloats, UpdateMem) \
     void Oper##_##Opcode##_handler(cscript& interp, uint32_t opcode) \
     { \
         (void)opcode; \
-        generic_arith_handler<AllowFloats>(interp, arith_op::Oper); \
+        generic_arith_handler<AllowFloats, UpdateMem>(interp, arith_op::Oper); \
     } \
     \
     register_instruction Oper##_##Opcode##_instr(Opcode, 0xFFFF0000, \
                                                  Oper##_##Opcode##_handler);
 
-ARITH_HANDLER(0x010A0000, PLUS, true);
-ARITH_HANDLER(0x011C0000, TIMES, true);
-ARITH_HANDLER(0x011D0000, DIV, true);
-ARITH_HANDLER(0x011E0000, MOD, false);
-ARITH_HANDLER(0x011F0000, PLUS, true);
-ARITH_HANDLER(0x01200000, MINUS, true);
+ARITH_HANDLER(0x010A0000, PLUS, true, true);
+ARITH_HANDLER(0x011C0000, TIMES, true, false);
+ARITH_HANDLER(0x011D0000, DIV, true, false);
+ARITH_HANDLER(0x011E0000, MOD, false, false);
+ARITH_HANDLER(0x011F0000, PLUS, true, false);
+ARITH_HANDLER(0x01200000, MINUS, true, false);
 
 }}
