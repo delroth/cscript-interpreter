@@ -26,4 +26,17 @@ void post_incr_handler(cscript& interp, uint32_t opcode)
 
 register_instruction post_incr_instr(0x01010000, 0xFFFF0000, post_incr_handler);
 
+void neg_handler(cscript& interp, uint32_t opcode)
+{
+    (void)opcode;
+
+    variable& var = interp.curr_thread().scratch.top(1);
+    if (type::trivially_integer(var.type))
+        var.value.s32 = -var.value.s32;
+    else
+        var.value.f32 = -var.value.f32;
+}
+
+register_instruction neg_instr(0x01050000, 0xFFFF0000, neg_handler);
+
 }}
