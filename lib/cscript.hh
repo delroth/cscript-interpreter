@@ -158,7 +158,13 @@ public:
      */
     void exit()
     {
-        done_ = true;
+        if (current_thread_ == 0)
+            done_ = true;
+        else
+        {
+            curr_thread().st = thread_state::NOT_RUNNING;
+            schedule_next();
+        }
     }
 
     /**
