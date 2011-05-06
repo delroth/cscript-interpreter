@@ -30,6 +30,9 @@ public:
      */
     stack() : top_(MAX_SIZE), frame_base_(MAX_SIZE)
     {
+        // Clean the stack
+        for (uint32_t i = 0; i < MAX_SIZE; ++i)
+            arr_[i] = 0;
     }
 
     /**
