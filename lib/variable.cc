@@ -78,6 +78,9 @@ uint32_t variable::read_value_from_addr(const cscript& interp) const
         }
 
         uint16_t t = this->type & 0xF;
+        if (this->type & type::POINTER)
+            t = type::UWORD;
+
         variable::value_type v;
 
         switch (t)
