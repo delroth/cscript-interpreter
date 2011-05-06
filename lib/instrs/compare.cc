@@ -9,6 +9,7 @@
 enum class compare_op
 {
     EQ,
+    NE,
     LE,
     GT,
 };
@@ -29,6 +30,8 @@ bool apply_op(compare_op op, T first_val, T second_val)
     {
     case compare_op::EQ:
         return (first_val == second_val);
+    case compare_op::NE:
+        return (first_val != second_val);
     case compare_op::LE:
         return (first_val <= second_val);
     case compare_op::GT:
@@ -85,6 +88,7 @@ void generic_compare_handler(cscript& interp, compare_op op)
     register_instruction Oper##_instr(Opcode, 0xFFFF0000, Oper##_handler)
 
 COMPARE_HANDLER(0x01140000, EQ);
+COMPARE_HANDLER(0x01150000, NE);
 COMPARE_HANDLER(0x01160000, LE);
 COMPARE_HANDLER(0x01180000, GT);
 
