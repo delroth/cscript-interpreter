@@ -1,9 +1,11 @@
+#include "address.hh"
 #include "cscript.hh"
 #include "endian.hh"
 #include "instruction-dispatcher.hh"
 #include "instruction-handler.hh"
 #include "type.hh"
 
+#include <boost/format.hpp>
 #include <cstring>
 #include <sstream>
 
@@ -86,6 +88,7 @@ void cscript::schedule_next()
 
 void cscript::run_one_instr()
 {
+    //std::cerr << curr_thread();
     uint32_t opcode = read_code_at(curr_thread().pc++);
     boost::optional<instruction::handler> handler;
 
@@ -108,6 +111,14 @@ bool cscript::handle_common_syscall(uint16_t syscall,
     {
         curr_thread().frames_to_wait = args[0];
         curr_thread().st |= thread_state::WAIT_FRAMES;
+    }
+    else if (syscall == 0xFFFF)
+    {
+        std::string fmt_string = address::get_ptr(*this, args[0]);
+        boost::format fmt(fmt_string);
+        for (unsigned int i = 1; i < args.size(); ++i)
+            fmt = fmt % args[i];
+        std::cerr << "[log] " << fmt << std::endl;
     }
     else
         return false;
