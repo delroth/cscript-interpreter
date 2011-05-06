@@ -19,6 +19,13 @@ void load_immediate(cscript& interp, uint32_t value, uint8_t val_type)
 
 }
 
+void load_uchar_handler(cscript& interp, uint32_t opcode)
+{
+    load_immediate(interp, (uint8_t)(opcode & 0xFF), type::UCHAR);
+}
+register_instruction load_uchar_instr(0x02020000, 0xFFFF0000,
+                                      load_uchar_handler);
+
 void load_schar_handler(cscript& interp, uint32_t opcode)
 {
     load_immediate(interp, (int8_t)(opcode & 0xFF), type::SCHAR);
@@ -26,12 +33,29 @@ void load_schar_handler(cscript& interp, uint32_t opcode)
 register_instruction load_schar_instr(0x02030000, 0xFFFF0000,
                                       load_schar_handler);
 
+void load_uhalf_handler(cscript& interp, uint32_t opcode)
+{
+    load_immediate(interp, (uint16_t)(opcode & 0xFFFF), type::UHALF);
+}
+register_instruction load_uhalf_instr(0x02040000, 0xFFFF0000,
+                                      load_uhalf_handler);
+
 void load_shalf_handler(cscript& interp, uint32_t opcode)
 {
     load_immediate(interp, (int16_t)(opcode & 0xFFFF), type::SHALF);
 }
 register_instruction load_shalf_instr(0x02050000, 0xFFFF0000,
                                       load_shalf_handler);
+
+void load_uword_handler(cscript& interp, uint32_t opcode)
+{
+    (void)opcode;
+
+    uint32_t value = interp.read_code_at(interp.curr_thread().pc++);
+    load_immediate(interp, value, type::UWORD);
+}
+register_instruction load_uword_instr(0x02060000, 0xFFFF0000,
+                                      load_uword_handler);
 
 void load_sword_handler(cscript& interp, uint32_t opcode)
 {
