@@ -37,6 +37,14 @@ std::map<uint16_t, handler> handlers = {
 bool execute_syscall(cscript& script, uint16_t syscall,
                      const std::vector<uint32_t>& args)
 {
+    std::cout << "Executing syscall " << std::hex << syscall << " with args: ";
+    for (auto arg : args)
+    {
+        std::cout << std::hex << std::setw(8) << std::setfill('0') << arg;
+        std::cout << " ";
+    }
+    std::cout << std::endl;
+
     if (handlers.find(syscall) == handlers.end())
         return false;
     handlers[syscall](script, args);
