@@ -66,10 +66,11 @@ void skit_getsomething(cscript& script, const std::vector<uint32_t>& args)
     float* py = (float*)address::get_ptr(script, args[2]);
 
     auto it = init_values.find(args[0]);
-    if (it == init_values.end())
-        throw exception("unable to find the float values");
-    *px = it->second.x;
-    *py = it->second.y;
+    if (it != init_values.end())
+    {
+        *px = it->second.x;
+        *py = it->second.y;
+    }
 
     variable& v = script.curr_thread().scratch.top(0);
 
