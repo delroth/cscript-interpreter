@@ -10,9 +10,6 @@ add_library(cscript SHARED
             instrs/arith.cc
             instrs/cast.cc
             instrs/compare.cc
-            instrs/compute-index.cc
-            instrs/compute-move.cc
-            instrs/compute-utils.cc
             instrs/control-flow.cc
             instrs/dereference.cc
             instrs/get-address.cc
@@ -20,6 +17,8 @@ add_library(cscript SHARED
             instrs/load-address.cc
             instrs/logical.cc
             instrs/misc.cc
+            instrs/move.cc
+            instrs/scratchpad.cc
             instrs/stack.cc
             instrs/thread.cc
             instrs/unary.cc
