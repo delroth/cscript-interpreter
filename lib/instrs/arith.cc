@@ -11,6 +11,7 @@ enum class arith_op
     TIMES,
     MOD,
     DIV,
+    OR,
 };
 
 namespace cscript { namespace instruction {
@@ -41,6 +42,8 @@ uint32_t apply_op_int(arith_op op, uint32_t first_val, uint32_t second_val)
     {
     case arith_op::MOD:
         return (first_val % second_val);
+    case arith_op::OR:
+        return (first_val | second_val);
     default:
         return apply_op_gen<uint32_t>(op, first_val, second_val);
     }
@@ -102,5 +105,6 @@ ARITH_HANDLER(0x011D0000, DIV, true, false);
 ARITH_HANDLER(0x011E0000, MOD, false, false);
 ARITH_HANDLER(0x011F0000, PLUS, true, false);
 ARITH_HANDLER(0x01200000, MINUS, true, false);
+ARITH_HANDLER(0x01220000, OR, false, false);
 
 }}
