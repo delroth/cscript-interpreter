@@ -8,7 +8,9 @@
 
 namespace cscript { namespace skit {
 
-typedef std::function<void(cscript&, const std::vector<uint32_t>&)> handler;
+typedef std::function<void(skit_cscript&,
+                      const std::vector<uint32_t>&)> handler;
+
 std::map<uint16_t, handler> handlers = {
     { syscalls::SKIT_INIT_ID, syscalls::skit_init },
     { syscalls::SKIT_WAIT_ID, syscalls::skit_wait },
@@ -47,7 +49,17 @@ bool execute_syscall(cscript& script, uint16_t syscall,
 
     if (handlers.find(syscall) == handlers.end())
         return false;
-    handlers[syscall](script, args);
+
+    try
+    {
+        skit_cscript& skit_script = dynamic_cast<skit_cscript&>(script);
+        handlers[syscall](skit_script, args);
+    }
+    catch (const std::bad_cast&)
+    {
+        throw exception("Executing a skit syscall on a non-skit cscript");
+    }
+
     return true;
 }
 

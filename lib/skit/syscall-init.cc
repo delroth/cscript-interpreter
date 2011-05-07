@@ -3,7 +3,7 @@
 
 namespace cscript { namespace skit { namespace syscalls {
 
-void skit_init(cscript& script, const std::vector<uint32_t>& args)
+void skit_init(skit_cscript& script, const std::vector<uint32_t>& args)
 {
     (void)args;
 

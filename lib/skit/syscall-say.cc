@@ -7,7 +7,7 @@
 
 namespace cscript { namespace skit { namespace syscalls {
 
-void skit_say(cscript& script, const std::vector<uint32_t>& args)
+void skit_say(skit_cscript& script, const std::vector<uint32_t>& args)
 {
     std::string name = address::get_ptr(script, args[0]);
     std::string msg = address::get_ptr(script, args[1]);

@@ -8,7 +8,8 @@
 namespace cscript { namespace skit { namespace syscalls {
 
 #define UNKNOWN_HANDLER(n) \
-    void skit_unknown##n(cscript& script, const std::vector<uint32_t>& args) \
+    void skit_unknown##n(skit_cscript& script, \
+                         const std::vector<uint32_t>& args) \
     { \
         (void)args; \
      \
@@ -42,7 +43,8 @@ struct something
 
 std::map<uint32_t, something> init_values;
 
-void skit_initsomething(cscript& script, const std::vector<uint32_t>& args)
+void skit_initsomething(skit_cscript& script,
+                        const std::vector<uint32_t>& args)
 {
     uint32_t id = args[0];
     float x = utils::float_from_u32(args[2]);
@@ -60,7 +62,8 @@ void skit_initsomething(cscript& script, const std::vector<uint32_t>& args)
     script.curr_thread().scratch.push();
 }
 
-void skit_getsomething(cscript& script, const std::vector<uint32_t>& args)
+void skit_getsomething(skit_cscript& script,
+                       const std::vector<uint32_t>& args)
 {
     float* px = (float*)address::get_ptr(script, args[1]);
     float* py = (float*)address::get_ptr(script, args[2]);
@@ -82,7 +85,8 @@ void skit_getsomething(cscript& script, const std::vector<uint32_t>& args)
     script.curr_thread().scratch.push();
 }
 
-void skit_setsomething(cscript& script, const std::vector<uint32_t>& args)
+void skit_setsomething(skit_cscript& script,
+                       const std::vector<uint32_t>& args)
 {
     uint32_t id = args[0];
     float x = utils::float_from_u32(args[1]);
