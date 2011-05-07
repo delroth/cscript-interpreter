@@ -29,6 +29,7 @@ add_library(cscript SHARED
             scratchpad.hh
             skit-cscript.cc
             skit-cscript.hh
+            skit/backend.hh
             skit/syscalls.cc
             skit/syscalls.hh
             skit/syscall-init.cc
