@@ -32,10 +32,16 @@ add_library(cscript SHARED
             skit/backend.hh
             skit/syscalls.cc
             skit/syscalls.hh
+            skit/syscall-get-char-pos.cc
+            skit/syscall-get-char-pos.hh
             skit/syscall-init.cc
             skit/syscall-init.hh
+            skit/syscall-init-char.cc
+            skit/syscall-init-char.hh
             skit/syscall-say.cc
             skit/syscall-say.hh
+            skit/syscall-set-char-pos.cc
+            skit/syscall-set-char-pos.hh
             skit/syscall-unknown.cc
             skit/syscall-unknown.hh
             skit/syscall-wait.cc

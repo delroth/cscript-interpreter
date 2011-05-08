@@ -1,13 +1,16 @@
+#include "../address.hh"
 #include "../type.hh"
 #include "syscall-init.hh"
+
+#include <string>
 
 namespace cscript { namespace skit { namespace syscalls {
 
 void skit_init(skit_cscript& script, const std::vector<uint32_t>& args)
 {
-    (void)args;
+    std::string skit_id = address::get_ptr(script, args[0]);
+    script.backend().init(skit_id);
 
-    // TODO: stub
     variable& v = script.curr_thread().scratch.top(0);
 
     v.value.u32 = 0;

@@ -3,6 +3,20 @@
 
 namespace cscript { namespace skit { namespace syscalls {
 
+void skit_wait_start(skit_cscript& script, const std::vector<uint32_t>& args)
+{
+    (void)args;
+
+    script.curr_thread().st |= thread_state::WAIT_EVENT;
+    script.backend().wait_start(&script.curr_thread().event_triggered);
+
+    variable& v = script.curr_thread().scratch.top(0);
+    v.value.u32 = 0;
+    v.address = 0;
+    v.type = type::IMMEDIATE | type::SWORD;
+    script.curr_thread().scratch.push();
+}
+
 void skit_wait(skit_cscript& script, const std::vector<uint32_t>& args)
 {
     (void)args;
