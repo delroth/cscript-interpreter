@@ -1,3 +1,5 @@
+#include "skit-backend.hh"
+
 #include <basic-cscript.hh>
 #include <skit-cscript.hh>
 
@@ -8,17 +10,23 @@
 #include <memory>
 #include <string>
 
-#define CSCRIPT_HANDLER(name, klass) \
-    { name, [](const char* data, size_t size) { \
-        return new klass(data, size); \
-    }}
+cscript::cscript* new_default_cscript(const char* data, size_t size)
+{
+    return new cscript::basic_cscript(data, size);
+}
+
+cscript::cscript* new_skit_cscript(const char* data, size_t size)
+{
+    frontend::skit::backend* back = new frontend::skit::backend();
+    return new cscript::skit_cscript(back, data, size);
+}
 
 std::map<
     std::string,
     std::function<cscript::cscript*(const char*, size_t)>
 > cscript_handlers = {
-    CSCRIPT_HANDLER("default", cscript::basic_cscript),
-    CSCRIPT_HANDLER("skit", cscript::skit_cscript)
+    { "default", new_default_cscript },
+    { "skit", new_skit_cscript },
 };
 
 int main(int argc, char** argv)
