@@ -2,6 +2,7 @@
 
 #include <basic-cscript.hh>
 #include <tos2-skit-cscript.hh>
+#include <tog-skit-cscript.hh>
 
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <cstdio>
@@ -21,19 +22,28 @@ cscript::cscript* new_tos2_skit_cscript(const char* data, size_t size)
     return new cscript::tos2_skit_cscript(back, data, size);
 }
 
+cscript::cscript* new_tog_skit_cscript(const char* data, size_t size)
+{
+    return new cscript::tog_skit_cscript(data, size);
+}
+
 std::map<
     std::string,
     std::function<cscript::cscript*(const char*, size_t)>
 > cscript_handlers = {
     { "default", new_default_cscript },
     { "tos2-skit", new_tos2_skit_cscript },
+    { "tog-skit", new_tog_skit_cscript },
 };
 
 int main(int argc, char** argv)
 {
     if (argc != 2 && argc != 3)
     {
-        fprintf(stderr, "usage: %s [tos2-skit] <script.so>\n", argv[0]);
+        fprintf(stderr, "usage: %s [type] <script.so>\n", argv[0]);
+        fprintf(stderr, "supported script types:\n");
+        for (auto p : cscript_handlers)
+            fprintf(stderr, " - %s\n", p.first.c_str());
         return 1;
     }
 

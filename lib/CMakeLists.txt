@@ -46,6 +46,8 @@ add_library(cscript SHARED
             tos2-skit/syscall-unknown.hh
             tos2-skit/syscall-wait.cc
             tos2-skit/syscall-wait.hh
+            tog-skit-cscript.cc
+            tog-skit-cscript.hh
             stack.hh
             thread-context.cc
             thread-context.hh
