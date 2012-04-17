@@ -3,10 +3,10 @@
 #include "../utils.hh"
 #include "syscall-unknown.hh"
 
-namespace cscript { namespace skit { namespace syscalls {
+namespace cscript { namespace tos2_skit { namespace syscalls {
 
 #define UNKNOWN_HANDLER(n) \
-    void skit_unknown##n(skit_cscript& script, \
+    void skit_unknown##n(tos2_skit_cscript& script, \
                          const std::vector<uint32_t>& args) \
     { \
         (void)args; \

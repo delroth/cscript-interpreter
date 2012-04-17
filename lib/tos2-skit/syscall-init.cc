@@ -4,9 +4,9 @@
 
 #include <string>
 
-namespace cscript { namespace skit { namespace syscalls {
+namespace cscript { namespace tos2_skit { namespace syscalls {
 
-void skit_init(skit_cscript& script, const std::vector<uint32_t>& args)
+void skit_init(tos2_skit_cscript& script, const std::vector<uint32_t>& args)
 {
     std::string skit_id = address::get_ptr(script, args[0]);
     script.backend().init(skit_id);

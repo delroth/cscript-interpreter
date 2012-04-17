@@ -1,9 +1,9 @@
 #include "../type.hh"
 #include "syscall-wait.hh"
 
-namespace cscript { namespace skit { namespace syscalls {
+namespace cscript { namespace tos2_skit { namespace syscalls {
 
-void skit_wait_start(skit_cscript& script, const std::vector<uint32_t>& args)
+void skit_wait_start(tos2_skit_cscript& script, const std::vector<uint32_t>& args)
 {
     (void)args;
 
@@ -17,7 +17,7 @@ void skit_wait_start(skit_cscript& script, const std::vector<uint32_t>& args)
     script.curr_thread().scratch.push();
 }
 
-void skit_wait(skit_cscript& script, const std::vector<uint32_t>& args)
+void skit_wait(tos2_skit_cscript& script, const std::vector<uint32_t>& args)
 {
     (void)args;
 

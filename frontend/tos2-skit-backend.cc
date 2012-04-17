@@ -1,8 +1,8 @@
-#include "skit-backend.hh"
+#include "tos2-skit-backend.hh"
 
 #include <iostream>
 
-namespace frontend { namespace skit {
+namespace frontend { namespace tos2_skit {
 
 void backend::init(const std::string& skit_id)
 {

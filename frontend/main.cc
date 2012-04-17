@@ -1,7 +1,7 @@
-#include "skit-backend.hh"
+#include "tos2-skit-backend.hh"
 
 #include <basic-cscript.hh>
-#include <skit-cscript.hh>
+#include <tos2-skit-cscript.hh>
 
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <cstdio>
@@ -15,10 +15,10 @@ cscript::cscript* new_default_cscript(const char* data, size_t size)
     return new cscript::basic_cscript(data, size);
 }
 
-cscript::cscript* new_skit_cscript(const char* data, size_t size)
+cscript::cscript* new_tos2_skit_cscript(const char* data, size_t size)
 {
-    frontend::skit::backend* back = new frontend::skit::backend();
-    return new cscript::skit_cscript(back, data, size);
+    frontend::tos2_skit::backend* back = new frontend::tos2_skit::backend();
+    return new cscript::tos2_skit_cscript(back, data, size);
 }
 
 std::map<
@@ -26,14 +26,14 @@ std::map<
     std::function<cscript::cscript*(const char*, size_t)>
 > cscript_handlers = {
     { "default", new_default_cscript },
-    { "skit", new_skit_cscript },
+    { "tos2-skit", new_tos2_skit_cscript },
 };
 
 int main(int argc, char** argv)
 {
     if (argc != 2 && argc != 3)
     {
-        fprintf(stderr, "usage: %s [skit] <script.so>\n", argv[0]);
+        fprintf(stderr, "usage: %s [tos2-skit] <script.so>\n", argv[0]);
         return 1;
     }
 

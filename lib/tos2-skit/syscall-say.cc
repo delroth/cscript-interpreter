@@ -5,9 +5,9 @@
 #include <iostream>
 #include <string>
 
-namespace cscript { namespace skit { namespace syscalls {
+namespace cscript { namespace tos2_skit { namespace syscalls {
 
-void skit_say(skit_cscript& script, const std::vector<uint32_t>& args)
+void skit_say(tos2_skit_cscript& script, const std::vector<uint32_t>& args)
 {
     std::string name = address::get_ptr(script, args[0]);
     std::string msg = address::get_ptr(script, args[1]);

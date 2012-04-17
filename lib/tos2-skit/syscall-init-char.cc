@@ -3,9 +3,9 @@
 #include "../utils.hh"
 #include "syscall-init-char.hh"
 
-namespace cscript { namespace skit { namespace syscalls {
+namespace cscript { namespace tos2_skit { namespace syscalls {
 
-void skit_init_char(skit_cscript& script, const std::vector<uint32_t>& args)
+void skit_init_char(tos2_skit_cscript& script, const std::vector<uint32_t>& args)
 {
     uint32_t id = args[0];
     uint32_t face = args[1];

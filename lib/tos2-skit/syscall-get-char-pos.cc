@@ -3,9 +3,9 @@
 #include "../utils.hh"
 #include "syscall-get-char-pos.hh"
 
-namespace cscript { namespace skit { namespace syscalls {
+namespace cscript { namespace tos2_skit { namespace syscalls {
 
-void skit_get_char_pos(skit_cscript& script,
+void skit_get_char_pos(tos2_skit_cscript& script,
                        const std::vector<uint32_t>& args)
 {
     float& x = *((float*)address::get_ptr(script, args[1]));

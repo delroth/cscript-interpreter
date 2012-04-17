@@ -1,13 +1,13 @@
-#ifndef __SKIT_BACKEND_HH_
-# define __SKIT_BACKEND_HH_
+#ifndef __TOS2_SKIT_BACKEND_HH_
+# define __TOS2_SKIT_BACKEND_HH_
 
 #include <cstdint>
 #include <string>
 
-namespace cscript { namespace skit {
+namespace cscript { namespace tos2_skit {
 
 /**
- * The backend of a skit_cscript, which is called by all the syscalls when a
+ * The backend of a tos2_skit_cscript, which is called by all the syscalls when a
  * sophisticated operation is to be done.
  */
 class backend

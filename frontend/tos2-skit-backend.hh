@@ -1,10 +1,10 @@
-#ifndef __FRONTEND_SKIT_BACKEND_HH_
-# define __FRONTEND_SKIT_BACKEND_HH_
+#ifndef __FRONTEND_TOS2_SKIT_BACKEND_HH_
+# define __FRONTEND_TOS2_SKIT_BACKEND_HH_
 
 # include <map>
-# include <skit/backend.hh>
+# include <tos2-skit/backend.hh>
 
-namespace frontend { namespace skit {
+namespace frontend { namespace tos2_skit {
 
 struct character
 {
@@ -12,7 +12,7 @@ struct character
     float x, y;
 };
 
-class backend : public cscript::skit::backend
+class backend : public cscript::tos2_skit::backend
 {
 public:
     virtual void init(const std::string& skit_id);

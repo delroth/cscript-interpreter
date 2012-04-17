@@ -9,9 +9,9 @@
 
 #include <map>
 
-namespace cscript { namespace skit {
+namespace cscript { namespace tos2_skit {
 
-typedef std::function<void(skit_cscript&,
+typedef std::function<void(tos2_skit_cscript&,
                       const std::vector<uint32_t>&)> handler;
 
 std::map<uint16_t, handler> handlers = {
@@ -57,7 +57,7 @@ bool execute_syscall(cscript& script, uint16_t syscall,
 
     try
     {
-        skit_cscript& skit_script = dynamic_cast<skit_cscript&>(script);
+        tos2_skit_cscript& skit_script = dynamic_cast<tos2_skit_cscript&>(script);
         handlers[syscall](skit_script, args);
     }
     catch (const std::bad_cast&)

@@ -1,13 +1,13 @@
-#ifndef __SKIT_SYSCALL_UNKNOWN_HH_
-# define __SKIT_SYSCALL_UNKNOWN_HH_
+#ifndef __TOS2_SCRIPT_SYSCALL_UNKNOWN_HH_
+# define __TOS2_SCRIPT_SYSCALL_UNKNOWN_HH_
 
-# include "../skit-cscript.hh"
+# include "../tos2-skit-cscript.hh"
 
-namespace cscript { namespace skit { namespace syscalls {
+namespace cscript { namespace tos2_skit { namespace syscalls {
 
 #define UNKNOWN_DECL(n, id) \
     const uint16_t SKIT_UNKNOWN##n##_ID = id; \
-    void skit_unknown##n(skit_cscript& script, \
+    void skit_unknown##n(tos2_skit_cscript& script, \
                          const std::vector<uint32_t>& args);
 
 UNKNOWN_DECL(1, 0x65)
@@ -24,7 +24,7 @@ UNKNOWN_DECL(11, 0x7e)
 UNKNOWN_DECL(12, 0x7f)
 
 const uint16_t SKIT_SETSOMETHING_ID = 0x68;
-void skit_setsomething(skit_cscript& script,
+void skit_setsomething(tos2_skit_cscript& script,
                        const std::vector<uint32_t>& args);
 
 }}}

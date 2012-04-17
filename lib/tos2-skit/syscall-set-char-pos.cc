@@ -3,9 +3,9 @@
 #include "../utils.hh"
 #include "syscall-set-char-pos.hh"
 
-namespace cscript { namespace skit { namespace syscalls {
+namespace cscript { namespace tos2_skit { namespace syscalls {
 
-void skit_set_char_pos(skit_cscript& script,
+void skit_set_char_pos(tos2_skit_cscript& script,
                        const std::vector<uint32_t>& args)
 {
     uint32_t id = args[0];

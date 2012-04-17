@@ -27,25 +27,25 @@ add_library(cscript SHARED
             instruction-handler.hh
             instruction-register.hh
             scratchpad.hh
-            skit-cscript.cc
-            skit-cscript.hh
-            skit/backend.hh
-            skit/syscalls.cc
-            skit/syscalls.hh
-            skit/syscall-get-char-pos.cc
-            skit/syscall-get-char-pos.hh
-            skit/syscall-init.cc
-            skit/syscall-init.hh
-            skit/syscall-init-char.cc
-            skit/syscall-init-char.hh
-            skit/syscall-say.cc
-            skit/syscall-say.hh
-            skit/syscall-set-char-pos.cc
-            skit/syscall-set-char-pos.hh
-            skit/syscall-unknown.cc
-            skit/syscall-unknown.hh
-            skit/syscall-wait.cc
-            skit/syscall-wait.hh
+            tos2-skit-cscript.cc
+            tos2-skit-cscript.hh
+            tos2-skit/backend.hh
+            tos2-skit/syscalls.cc
+            tos2-skit/syscalls.hh
+            tos2-skit/syscall-get-char-pos.cc
+            tos2-skit/syscall-get-char-pos.hh
+            tos2-skit/syscall-init.cc
+            tos2-skit/syscall-init.hh
+            tos2-skit/syscall-init-char.cc
+            tos2-skit/syscall-init-char.hh
+            tos2-skit/syscall-say.cc
+            tos2-skit/syscall-say.hh
+            tos2-skit/syscall-set-char-pos.cc
+            tos2-skit/syscall-set-char-pos.hh
+            tos2-skit/syscall-unknown.cc
+            tos2-skit/syscall-unknown.hh
+            tos2-skit/syscall-wait.cc
+            tos2-skit/syscall-wait.hh
             stack.hh
             thread-context.cc
             thread-context.hh
