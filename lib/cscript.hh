@@ -8,6 +8,7 @@
 # include <array>
 # include <cstdint>
 # include <cstdlib>
+# include <map>
 
 namespace cscript {
 
@@ -15,6 +16,14 @@ class bad_script_exception : public exception
 {
 public:
     bad_script_exception(const std::string& message) : exception(message)
+    {
+    }
+};
+
+class invalid_external_pointer_exception : public exception
+{
+public:
+    invalid_external_pointer_exception(const std::string& m) : exception(m)
     {
     }
 };
@@ -30,14 +39,16 @@ public:
      */
     cscript() :
         code_sect_(0), code_sect_size_(0), data_sect_(0), data_sect_size_(0),
-        current_thread_(0), done_(false)
+        current_thread_(0), done_(false), next_free_external_(0)
     {
+        external_pointers_.fill(0);
     }
 
     cscript(const char* buffer, size_t size) :
         code_sect_(0), code_sect_size_(0), data_sect_(0), data_sect_size_(0),
-        current_thread_(0), done_(false)
+        current_thread_(0), done_(false), next_free_external_(0)
     {
+        external_pointers_.fill(0);
         this->parse_bytecode(buffer, size);
     }
 
@@ -61,6 +72,24 @@ public:
      */
     bool handle_common_syscall(uint16_t syscall,
                                const std::vector<uint32_t>& args);
+
+    /**
+     * Registers a pointer to an external data page and returns the id for this
+     * external pointer.
+     *
+     * @param addr The address to the external page.
+     * @return An ID used to reference this external page.
+     */
+    uint16_t register_external_pointer(char* addr);
+
+    /**
+     * Gets a pointer to the data associated with an external pointer.
+     *
+     * @param id The external pointer id.
+     * @return The address for the memory block referenced by that id.
+     */
+    char* get_external_pointer(uint16_t id);
+    const char* get_external_pointer(uint16_t id) const;
 
     /**
      * Read an uint32_t from the code section.
@@ -220,6 +249,13 @@ private:
      * Execution context of the script threads.
      */
     std::array<thread_context, MAX_THREADS> threads_;
+
+    /**
+     * Metadata for external pointers handling.
+     */
+    std::array<char*, 0x400> external_pointers_;
+    std::map<char*, uint16_t> registered_addrs_;
+    uint16_t next_free_external_;
 };
 
 }

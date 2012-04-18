@@ -23,6 +23,12 @@ typename trait<char>::type* generic_get_ptr(
         auto ptr = &script.thread(tid).stk.at(off);
         return (typename trait<char>::type*)(ptr);
     }
+    else if (address & EXTERNAL_FLAG)
+    {
+        uint16_t id = (address & EXTERNAL_ID_MASK) >> EXTERNAL_ID_SHIFT;
+        uint16_t off = (address & EXTERNAL_OFF_MASK) >> EXTERNAL_OFF_SHIFT;
+        return script.get_external_pointer(id) + off;
+    }
     else
         return 0;
 }
@@ -41,7 +47,7 @@ uint32_t uword_at(cscript& script, uint32_t address)
 {
     const char* ptr = get_ptr(script, address);
     uint32_t u = *((const uint32_t*)ptr);
-    if (address & DATA_FLAG)
+    if (address & DATA_FLAG || address & EXTERNAL_FLAG)
         u = endian::from_big(u);
     return u;
 }

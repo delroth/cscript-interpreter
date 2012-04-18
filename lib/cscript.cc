@@ -135,4 +135,34 @@ bool cscript::handle_common_syscall(uint16_t syscall,
     return true;
 }
 
+uint16_t cscript::register_external_pointer(char* addr)
+{
+    auto it = registered_addrs_.find(addr);
+    if (it != registered_addrs_.end())
+        return it->second;
+
+    uint16_t id = next_free_external_++;
+    if (id >= 0x400)
+        throw invalid_external_pointer_exception("too much external pointers");
+
+    external_pointers_[id] = addr;
+    registered_addrs_[addr] = id;
+
+    return id;
+}
+
+char* cscript::get_external_pointer(uint16_t id)
+{
+    if (!external_pointers_[id])
+        throw invalid_external_pointer_exception("unregistered id");
+    return external_pointers_[id];
+}
+
+const char* cscript::get_external_pointer(uint16_t id) const
+{
+    if (!external_pointers_[id])
+        throw invalid_external_pointer_exception("unregistered id");
+    return external_pointers_[id];
+}
+
 }
