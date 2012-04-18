@@ -1,4 +1,5 @@
 #include "tog-skit-cscript.hh"
+#include "tog-skit/syscalls.hh"
 
 #include <sstream>
 
@@ -10,11 +11,11 @@ void tog_skit_cscript::handle_syscall(uint16_t syscall,
     if (handle_common_syscall(syscall, args))
         return;
 
-    if (true)
+    if (!tog_skit::execute_syscall(*this, syscall, args))
     {
         std::ostringstream oss;
 
-        oss << "error: syscall 0x";
+        oss << "error: " << args.size() << " args syscall 0x";
         oss << std::hex << std::setfill('0') << std::setw(4);
         oss << syscall << " not yet implemented" << std::endl;
 
