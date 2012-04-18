@@ -11,23 +11,23 @@ typename trait<char>::type* generic_get_ptr(
                         typename trait<cscript>::type& script,
                         uint32_t address)
 {
-    if (address & DATA_FLAG)
+    if ((address & EXTERNAL_FLAG) == EXTERNAL_FLAG)
+    {
+        uint16_t id = (address & EXTERNAL_ID_MASK) >> EXTERNAL_ID_SHIFT;
+        uint16_t off = (address & EXTERNAL_OFF_MASK) >> EXTERNAL_OFF_SHIFT;
+        return script.get_external_pointer(id) + off;
+    }
+    else if ((address & DATA_FLAG) == DATA_FLAG)
     {
         uint32_t off = (address & DATA_OFF_MASK) >> DATA_OFF_SHIFT;
         return script.data_at(off);
     }
-    else if (address & STACK_FLAG)
+    else if ((address & STACK_FLAG) == STACK_FLAG)
     {
         uint16_t off = (address & STACK_OFF_MASK) >> STACK_OFF_SHIFT;
         uint16_t tid = (address & STACK_THREAD_MASK) >> STACK_THREAD_SHIFT;
         auto ptr = &script.thread(tid).stk.at(off);
         return (typename trait<char>::type*)(ptr);
-    }
-    else if (address & EXTERNAL_FLAG)
-    {
-        uint16_t id = (address & EXTERNAL_ID_MASK) >> EXTERNAL_ID_SHIFT;
-        uint16_t off = (address & EXTERNAL_OFF_MASK) >> EXTERNAL_OFF_SHIFT;
-        return script.get_external_pointer(id) + off;
     }
     else
         return 0;
