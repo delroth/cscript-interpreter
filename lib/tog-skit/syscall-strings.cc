@@ -1,5 +1,4 @@
 #include "../address.hh"
-#include "../type.hh"
 #include "syscall-strings.hh"
 
 namespace cscript { namespace tog_skit { namespace syscalls {
@@ -123,13 +122,12 @@ struct str_descriptor
     } scs;
 };
 
-void skit_get_string(tog_skit_cscript& script,
+int32_t skit_get_string(tog_skit_cscript& script,
                      const std::vector<uint32_t>& args)
 {
     std::string str = address::get_ptr(script, args[0]);
     str_descriptor descriptor(str);
 
-    uint32_t ret;
     if (descriptor.type == 0x1F)
     {
         char* ptr = script.backend().get_stringtable_base();
@@ -138,16 +136,10 @@ void skit_get_string(tog_skit_cscript& script,
         );
 
         uint16_t id = script.register_external_pointer(ptr);
-        ret = address::make_external_addr(id, offset);
+        return address::make_external_addr(id, offset);
     }
     else
         throw exception("unknown string descriptor type");
-
-    variable& v = script.curr_thread().scratch.top(0);
-    v.value.u32 = ret;
-    v.address = 0;
-    v.type = type::IMMEDIATE | type::SWORD;
-    script.curr_thread().scratch.push();
 }
 
 }}}

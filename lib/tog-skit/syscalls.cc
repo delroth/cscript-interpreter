@@ -1,3 +1,5 @@
+#include "../type.hh"
+
 #include "syscalls.hh"
 #include "syscall-random.hh"
 #include "syscall-strings.hh"
@@ -8,7 +10,7 @@
 
 namespace cscript { namespace tog_skit {
 
-typedef std::function<void(tog_skit_cscript&,
+typedef std::function<int32_t(tog_skit_cscript&,
                       const std::vector<uint32_t>&)> handler;
 
 std::map<uint16_t, handler> handlers = {
@@ -38,7 +40,13 @@ bool execute_syscall(cscript& script, uint16_t syscall,
     try
     {
         tog_skit_cscript& skit_script = dynamic_cast<tog_skit_cscript&>(script);
-        handlers[syscall](skit_script, args);
+        int32_t ret = handlers[syscall](skit_script, args);
+
+        variable& v = script.curr_thread().scratch.top(0);
+        v.value.u32 = ret;
+        v.address = 0;
+        v.type = type::IMMEDIATE | type::SWORD;
+        script.curr_thread().scratch.push();
     }
     catch (const std::bad_cast&)
     {
