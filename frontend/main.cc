@@ -1,3 +1,4 @@
+#include "tog-skit-backend.hh"
 #include "tos2-skit-backend.hh"
 
 #include <basic-cscript.hh>
@@ -24,7 +25,8 @@ cscript::cscript* new_tos2_skit_cscript(const char* data, size_t size)
 
 cscript::cscript* new_tog_skit_cscript(const char* data, size_t size)
 {
-    return new cscript::tog_skit_cscript(data, size);
+    frontend::tog_skit::backend* back = new frontend::tog_skit::backend();
+    return new cscript::tog_skit_cscript(back, data, size);
 }
 
 std::map<

@@ -48,6 +48,7 @@ add_library(cscript SHARED
             tos2-skit/syscall-wait.hh
             tog-skit-cscript.cc
             tog-skit-cscript.hh
+            tog-skit/backend.hh
             tog-skit/syscalls.cc
             tog-skit/syscalls.hh
             tog-skit/syscall-unknown.cc
