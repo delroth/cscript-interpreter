@@ -32,9 +32,12 @@ cscript::cscript* new_tos2_skit_cscript(const char* data, size_t size,
 cscript::cscript* new_tog_skit_cscript(const char* data, size_t size,
                                        const std::vector<std::string>& args)
 {
-    (void)args;
+    if (args.size() < 1)
+        throw cscript::exception("missing argument: scs file path");
 
-    frontend::tog_skit::backend* back = new frontend::tog_skit::backend();
+    frontend::tog_skit::backend* back = new frontend::tog_skit::backend(
+        args[0]
+    );
     return new cscript::tog_skit_cscript(back, data, size);
 }
 
