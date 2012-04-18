@@ -1,4 +1,5 @@
 #include "syscalls.hh"
+#include "syscall-strings.hh"
 #include "syscall-unknown.hh"
 
 #include <iostream>
@@ -13,6 +14,8 @@ std::map<uint16_t, handler> handlers = {
     { syscalls::SKIT_UNKNOWN1_ID, syscalls::skit_unknown1 },
     { syscalls::SKIT_UNKNOWN2_ID, syscalls::skit_unknown2 },
     { syscalls::SKIT_UNKNOWN3_ID, syscalls::skit_unknown3 },
+
+    { syscalls::SKIT_GET_STRING, syscalls::skit_get_string },
 };
 
 bool execute_syscall(cscript& script, uint16_t syscall,
