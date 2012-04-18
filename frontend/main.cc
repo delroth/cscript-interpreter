@@ -12,26 +12,36 @@
 #include <memory>
 #include <string>
 
-cscript::cscript* new_default_cscript(const char* data, size_t size)
+cscript::cscript* new_default_cscript(const char* data, size_t size,
+                                      const std::vector<std::string>& args)
 {
+    (void)args;
+
     return new cscript::basic_cscript(data, size);
 }
 
-cscript::cscript* new_tos2_skit_cscript(const char* data, size_t size)
+cscript::cscript* new_tos2_skit_cscript(const char* data, size_t size,
+                                        const std::vector<std::string>& args)
 {
+    (void)args;
+
     frontend::tos2_skit::backend* back = new frontend::tos2_skit::backend();
     return new cscript::tos2_skit_cscript(back, data, size);
 }
 
-cscript::cscript* new_tog_skit_cscript(const char* data, size_t size)
+cscript::cscript* new_tog_skit_cscript(const char* data, size_t size,
+                                       const std::vector<std::string>& args)
 {
+    (void)args;
+
     frontend::tog_skit::backend* back = new frontend::tog_skit::backend();
     return new cscript::tog_skit_cscript(back, data, size);
 }
 
 std::map<
     std::string,
-    std::function<cscript::cscript*(const char*, size_t)>
+    std::function<cscript::cscript*(const char*, size_t,
+                                    const std::vector<std::string>&)>
 > cscript_handlers = {
     { "default", new_default_cscript },
     { "tos2-skit", new_tos2_skit_cscript },
@@ -40,17 +50,18 @@ std::map<
 
 int main(int argc, char** argv)
 {
-    if (argc != 2 && argc != 3)
+    if (argc < 3)
     {
-        fprintf(stderr, "usage: %s [type] <script.so>\n", argv[0]);
+        fprintf(stderr, "usage: %s <type> <script.so> [args...]\n", argv[0]);
         fprintf(stderr, "supported script types:\n");
         for (auto p : cscript_handlers)
             fprintf(stderr, " - %s\n", p.first.c_str());
         return 1;
     }
 
-    std::string script_type = argc == 3 ? argv[1] : "default";
-    std::string filename = argc == 3 ? argv[2] : argv[1];
+    std::string script_type = argv[1];
+    std::string filename = argv[2];
+    std::vector<std::string> additional_args(argv + 3, argv + argc);
     boost::iostreams::mapped_file_source src(filename);
 
     if (cscript_handlers.find(script_type) == cscript_handlers.end())
@@ -62,7 +73,9 @@ int main(int argc, char** argv)
     try
     {
         auto handler = cscript_handlers[script_type];
-        std::shared_ptr<cscript::cscript> scr(handler(src.data(), src.size()));
+        std::shared_ptr<cscript::cscript> scr(
+            handler(src.data(), src.size(), additional_args)
+        );
         try
         {
             scr->run();
