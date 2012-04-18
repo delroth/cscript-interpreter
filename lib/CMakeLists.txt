@@ -51,6 +51,8 @@ add_library(cscript SHARED
             tog-skit/backend.hh
             tog-skit/syscalls.cc
             tog-skit/syscalls.hh
+            tog-skit/syscall-random.cc
+            tog-skit/syscall-random.hh
             tog-skit/syscall-strings.cc
             tog-skit/syscall-strings.hh
             tog-skit/syscall-unknown.cc
