@@ -4,8 +4,8 @@
 # include "instruction-handler.hh"
 
 # include <boost/optional.hpp>
-# include <boost/tuple/tuple.hpp>
 # include <cstdint>
+# include <tuple>
 # include <vector>
 
 namespace cscript { namespace instruction {
@@ -42,7 +42,7 @@ private:
      * The type of informations used to dispatch an instruction to its handler.
      * The three tuple arguments are those passed to register_handler.
      */
-    typedef boost::tuple<uint32_t, uint32_t, handler> dispatch_infos;
+    typedef std::tuple<uint32_t, uint32_t, handler> dispatch_infos;
 
     /**
      * The dispatch table, which contains everything needed to dispatch an

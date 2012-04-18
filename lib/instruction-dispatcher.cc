@@ -1,7 +1,5 @@
 #include "instruction-dispatcher.hh"
 
-#include <boost/foreach.hpp>
-
 namespace cscript { namespace instruction {
 
 dispatcher& dispatcher::get()
@@ -17,10 +15,10 @@ void dispatcher::register_handler(uint32_t value, uint32_t mask, handler h)
 
 boost::optional<handler> dispatcher::get_handler(uint32_t opcode)
 {
-    BOOST_FOREACH (const dispatch_infos& inf, dispatch_table_)
+    for (const dispatch_infos& inf : dispatch_table_)
     {
-        if ((opcode & inf.get<1>()) == inf.get<0>())
-            return boost::optional<handler>(inf.get<2>());
+        if ((opcode & std::get<1>(inf)) == std::get<0>(inf))
+            return boost::optional<handler>(std::get<2>(inf));
     }
 
     return boost::optional<handler>();

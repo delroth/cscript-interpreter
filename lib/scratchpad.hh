@@ -5,9 +5,10 @@
 # include "variable.hh"
 
 # include <algorithm>
-# include <boost/array.hpp>
+# include <array>
 # include <cstdlib>
 # include <iomanip>
+# include <ostream>
 
 namespace cscript {
 
@@ -86,7 +87,7 @@ private:
     /**
      * Array containing the variables currently stored in the scratchpad.
      */
-    boost::array<variable, MAX_VARIABLES> vars_;
+    std::array<variable, MAX_VARIABLES> vars_;
 
     /*
      * Friend dumping function.

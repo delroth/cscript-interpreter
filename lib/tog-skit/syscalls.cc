@@ -1,6 +1,7 @@
 #include "syscalls.hh"
 #include "syscall-unknown.hh"
 
+#include <iostream>
 #include <map>
 
 namespace cscript { namespace tog_skit {

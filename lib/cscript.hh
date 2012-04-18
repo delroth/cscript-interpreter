@@ -5,7 +5,7 @@
 # include "exception.hh"
 # include "thread-context.hh"
 
-# include <boost/array.hpp>
+# include <array>
 # include <cstdint>
 # include <cstdlib>
 
@@ -219,7 +219,7 @@ private:
     /**
      * Execution context of the script threads.
      */
-    boost::array<thread_context, MAX_THREADS> threads_;
+    std::array<thread_context, MAX_THREADS> threads_;
 };
 
 }

@@ -7,6 +7,7 @@
 #include "syscall-unknown.hh"
 #include "syscall-wait.hh"
 
+#include <iostream>
 #include <map>
 
 namespace cscript { namespace tos2_skit {

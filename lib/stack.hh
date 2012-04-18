@@ -3,9 +3,10 @@
 
 # include "exception.hh"
 
-# include <boost/array.hpp>
+# include <array>
 # include <cstdint>
 # include <iomanip>
+# include <ostream>
 
 namespace cscript {
 
@@ -119,7 +120,7 @@ private:
     /**
      * The array containing the stack values.
      */
-    boost::array<uint32_t, MAX_SIZE> arr_;
+    std::array<uint32_t, MAX_SIZE> arr_;
 
     /**
      * Index of the stack current top.
@@ -149,7 +150,7 @@ T& operator<<(T& str, const stack& s)
     str << "Stack: current top is " << std::hex << s.top_ << " and current "
         << "frame base is " << s.frame_base_ << std::endl;
     str << "  Contents:" << std::endl;
-    
+
     for (uint32_t i = stack::MAX_SIZE - 1; i >= s.top_; --i)
     {
         str << "    ";
