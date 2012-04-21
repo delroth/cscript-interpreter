@@ -17,7 +17,7 @@ void idx_handler(cscript& interp, uint32_t opcode)
     if (arr.type & type::POINTER)
     {
         uint32_t off = idx.value.u32 * arr.pointed_size;
-        if (arr.value.u32 & address::STACK_FLAG)
+        if (address::is_stack_addr(arr.value.u32))
         {
             if (off % 4 != 0)
                 throw exception("indexing stack with a non aligned offset");
@@ -49,7 +49,7 @@ void rawidx_handler(cscript& interp, uint32_t opcode)
 
     variable& var = interp.curr_thread().scratch.top(1);
 
-    if (var.address & address::STACK_FLAG)
+    if (address::is_stack_addr(var.address))
     {
         if (idx % 4 != 0)
             throw exception("rawidx on stack non aligned");

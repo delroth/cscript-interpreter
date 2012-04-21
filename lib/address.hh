@@ -34,6 +34,21 @@ const uint32_t EXTERNAL_ID_SHIFT = 20;
 const uint32_t EXTERNAL_OFF_MASK = 0x000FFFFF;
 const uint32_t EXTERNAL_OFF_SHIFT = 0;
 
+inline bool is_data_addr(uint32_t addr)
+{
+    return (addr & 0xF0000000) == DATA_FLAG;
+}
+
+inline bool is_stack_addr(uint32_t addr)
+{
+    return (addr & 0xF0000000) == STACK_FLAG;
+}
+
+inline bool is_external_addr(uint32_t addr)
+{
+    return (addr & 0xF0000000) == EXTERNAL_FLAG;
+}
+
 inline uint32_t make_data_addr(uint32_t offset)
 {
     return DATA_FLAG | ((offset << DATA_OFF_SHIFT) & DATA_OFF_MASK);

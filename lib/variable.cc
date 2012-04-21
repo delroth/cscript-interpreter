@@ -49,7 +49,8 @@ bool variable::boolean_value() const
 
 // This is so ugly...
 #define FLIP_ENDIAN(v) (([&]() { \
-    if (this->address & address::DATA_FLAG) \
+    if (address::is_data_addr(this->address) \
+        || address::is_external_addr(this->address)) \
         return endian::from_big(v); \
     else \
         return v; \
